@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:mask="http://schemas.android.com/apk/res-auto"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:id="@+id/add_date_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/add_quantity_linear_layout"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <TextView
+            android:id="@+id/add_date_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:text="Дата :"/>
+
+        <br.com.sapereaude.maskedEditText.MaskedEditText
+            android:id="@+id/add_date_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            android:hint="01012020"
+            android:gravity="center"
+            android:inputType="date"
+            android:textColor="@android:color/black"
+            mask:allowed_chars="1234567890"
+            mask:mask="##.##.####" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/add_quantity_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="10"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/add_date_linear_layout"
+        app:layout_constraintBottom_toTopOf="@+id/add_check_in_time_linear_layout">
+
+        <TextView
+            android:id="@+id/add_quantity_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Количество : "
+            android:layout_weight="4"/>
+        <EditText
+            android:id="@+id/add_quantity_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint="10"
+            android:gravity="center"
+            android:layout_weight="6"
+            android:textColor="@android:color/black"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/add_check_in_time_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_quantity_linear_layout"
+        app:layout_constraintBottom_toTopOf="@+id/add_check_out_time_linear_layout"
+        android:weightSum="10">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Время входа :"
+            android:layout_weight="4"
+            />
+        <br.com.sapereaude.maskedEditText.MaskedEditText
+            android:id="@+id/add_check_in_time_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="time"
+            android:layout_weight="6"
+            mask:mask="##:##"
+            mask:allowed_chars="1234567890"
+            android:hint="1400"
+            android:gravity="center"
+            android:textColor="@android:color/black"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/add_check_out_time_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="10"
+        app:layout_constraintTop_toBottomOf="@+id/add_check_in_time_linear_layout"
+        app:layout_constraintBottom_toTopOf="@+id/add_avans_linear_layout"
+            >
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Время выхода :"
+            android:layout_weight="4"
+            />
+        <br.com.sapereaude.maskedEditText.MaskedEditText
+            android:id="@+id/add_check_out_time_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="time"
+            mask:mask="##:##"
+            android:hint="1200"
+            mask:allowed_chars="1234567890"
+            android:gravity="center"
+            android:layout_weight="6"
+            android:textColor="@android:color/black"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/add_avans_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_check_out_time_linear_layout"
+        app:layout_constraintBottom_toTopOf="@+id/add_debt_linear_layout">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Задаток :"
+            android:layout_weight="4"
+            />
+        <EditText
+            android:id="@+id/add_avans_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint="10000"
+            android:gravity="center"
+            android:layout_weight="6"
+            android:textColor="@android:color/black"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/add_debt_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_avans_linear_layout"
+        app:layout_constraintBottom_toTopOf="@+id/add_phone_number_linear_layout">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Остаток: "
+            android:layout_weight="4" />
+        <EditText
+            android:id="@+id/add_debt_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint="40000"
+            android:gravity="center"
+            android:layout_weight="6"
+            android:textColor="@android:color/black" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/add_phone_number_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_debt_linear_layout"
+        >
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Номер телефона :"
+            android:layout_weight="4" />
+        <br.com.sapereaude.maskedEditText.MaskedEditText
+            android:id="@+id/add_phone_number_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:gravity="center"
+            android:layout_weight="6"
+            android:textColor="@android:color/black"
+            mask:mask="+7(###)###-##-##"
+            android:hint="7777777777"
+            mask:allowed_chars="1234567890"/>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
