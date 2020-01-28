@@ -18,7 +18,8 @@
             tools:listitem="@layout/client_item"
             app:layout_constraintTop_toBottomOf="@+id/calendarView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="20dp"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add_floating_action_button"

@@ -3,6 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
+        <import type="android.view.View"/>
+        <import type="android.text.TextUtils" />
         <variable
             name="client"
             type="kz.shymkent.relaxhouse.Client" />
@@ -82,6 +84,7 @@
                     android:textColor="@android:color/white"
                     android:textSize="16sp"
                     android:textStyle="bold"
+                    
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/avans_image_view"
@@ -197,29 +200,22 @@
             android:layout_height="match_parent"
             android:background="@color/design_default_color_primary"
             android:layout_weight="4"
-            android:layout_margin="5dp">
-
-            <ImageView
-                android:id="@+id/comment_image_view"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_comment_white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:visibility="@{TextUtils.isEmpty(client.comment) ? View.GONE : View.VISIBLE}">
 
             <TextView
                 android:id="@+id/comment_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@{client.comment}"
                 android:textColor="@android:color/white"
                 android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/comment_image_view"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Нужно найти повара и поменять воду в бассейне" />
         </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </LinearLayout>

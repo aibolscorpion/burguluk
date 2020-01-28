@@ -112,6 +112,7 @@
             android:hint="12:00"
             android:gravity="center"
             android:layout_weight="6"
+            android:onClick="add_check_out_time_edit_text_clicked"
             android:textColor="@android:color/black"/>
     </LinearLayout>
     <LinearLayout
@@ -170,7 +171,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="10"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/add_comment_linear_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/add_debt_linear_layout"
@@ -191,5 +192,30 @@
             mask:mask="+7(###)###-##-##"
             android:hint="7777777777"
             mask:allowed_chars="1234567890"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/add_comment_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_phone_number_linear_layout"
+        >
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Коментарий :"
+            android:layout_weight="4" />
+        <EditText
+            android:id="@+id/add_comment_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:inputType="textMultiLine"
+            android:gravity="center"
+            android:layout_weight="6"
+            android:textColor="@android:color/black"
+            android:hint="Найти повара, поменять воду в бассейне"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

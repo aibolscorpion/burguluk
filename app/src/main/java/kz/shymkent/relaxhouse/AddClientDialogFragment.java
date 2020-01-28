@@ -62,6 +62,7 @@ public class AddClientDialogFragment extends DialogFragment {
 
         final EditText add_quantity_edit_text = view.findViewById(R.id.add_quantity_edit_text);
         final EditText add_check_in_time_edit_text = view.findViewById(R.id.add_check_in_time_edit_text);
+        final EditText add_comment_edit_text = view.findViewById(R.id.add_comment_edit_text);
         add_check_in_time_edit_text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,6 +115,7 @@ public class AddClientDialogFragment extends DialogFragment {
                             client.setCheckInTime(add_check_in_time_edit_text.getText().toString());
                             client.setCheckOutTime(add_check_out_time_edit_text.getText().toString());
                             client.setQuantity(add_quantity_edit_text.getText().toString());
+                            client.setComment(add_comment_edit_text.getText().toString());
                             String id = databaseClients.push().getKey();
                             databaseClients.child(id).setValue(client);
                             alertDialog.dismiss();

@@ -1,6 +1,7 @@
 package kz.shymkent.relaxhouse;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ViewHolder
     @Override
     public ClientAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ClientItemBinding clientItemBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),R.layout.client_item,parent,false);
+        clientItemBinding.avansTextView.setPaintFlags(clientItemBinding.avansTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         return new ViewHolder(clientItemBinding);
     }
 

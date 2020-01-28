@@ -8,9 +8,9 @@ public class Client {
     public String avans;
     public String debt;
     public String phoneNumber;
-
+    public String comment;
     public Client(){};
-    public Client(String date, String quantity, String checkInTime, String checkOutTime, String avans, String debt, String phoneNumber){
+    public Client(String date, String quantity, String checkInTime, String checkOutTime, String avans, String debt, String phoneNumber,String comment){
         this.date = date;
         this.quantity = quantity;
         this.checkInTime = checkInTime;
@@ -18,6 +18,7 @@ public class Client {
         this.avans = avans;
         this.debt = debt;
         this.phoneNumber = phoneNumber;
+        this.comment = comment;
     }
     public String getDate() {
         return date;
@@ -74,4 +75,8 @@ public class Client {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
+    public void setComment(String comment){this.comment = comment;}
+
+    public String getComment(){return comment; }
 }
