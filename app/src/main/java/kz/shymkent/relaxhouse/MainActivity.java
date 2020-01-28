@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements CalendarView.OnDa
     CalendarView calendarView;
     RecyclerView recyclerView;
     ClientAdapter clientAdapter;
-    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d.MM.yyyy");
+    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d.M.yyyy");
     FloatingActionButton call_FAB;
     List<Client> clients = new ArrayList<>();
     List<Client> newList = new ArrayList<>();

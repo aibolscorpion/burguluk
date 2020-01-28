@@ -24,17 +24,16 @@
             android:layout_weight="4"
             android:text="Дата :"/>
 
-        <br.com.sapereaude.maskedEditText.MaskedEditText
+        <EditText
             android:id="@+id/add_date_edit_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="6"
-            android:hint="01012020"
+            android:hint="01.01.2020"
             android:gravity="center"
+            android:focusable="false"
             android:inputType="date"
-            android:textColor="@android:color/black"
-            mask:allowed_chars="1234567890"
-            mask:mask="##.##.####" />
+            android:textColor="@android:color/black" />
     </LinearLayout>
     <LinearLayout
         android:id="@+id/add_quantity_linear_layout"
@@ -78,15 +77,14 @@
             android:text="Время входа :"
             android:layout_weight="4"
             />
-        <br.com.sapereaude.maskedEditText.MaskedEditText
+        <EditText
             android:id="@+id/add_check_in_time_edit_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:inputType="time"
             android:layout_weight="6"
-            mask:mask="##:##"
-            mask:allowed_chars="1234567890"
-            android:hint="1400"
+            android:focusable="false"
+            android:hint="14:00"
             android:gravity="center"
             android:textColor="@android:color/black"/>
     </LinearLayout>
@@ -105,14 +103,13 @@
             android:text="Время выхода :"
             android:layout_weight="4"
             />
-        <br.com.sapereaude.maskedEditText.MaskedEditText
+        <EditText
             android:id="@+id/add_check_out_time_edit_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:inputType="time"
-            mask:mask="##:##"
-            android:hint="1200"
-            mask:allowed_chars="1234567890"
+            android:focusable="false"
+            android:hint="12:00"
             android:gravity="center"
             android:layout_weight="6"
             android:textColor="@android:color/black"/>
@@ -181,7 +178,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Номер телефона :"
+            android:text="Номер тел. :"
             android:layout_weight="4" />
         <br.com.sapereaude.maskedEditText.MaskedEditText
             android:id="@+id/add_phone_number_edit_text"
