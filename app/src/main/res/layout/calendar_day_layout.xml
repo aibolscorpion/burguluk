@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/exFiveDayLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/calendar_day_background_color"
+    android:layout_margin="1dp">
 
     <FrameLayout
         android:id="@+id/calendar_day_frame_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="1dp"
-        android:background="@color/calendar_day_background_color">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/calendar_day_text_view"
@@ -25,21 +25,21 @@
             android:textSize="12sp"
             tools:text="24" />
 
-<!--        <View-->
-<!--            android:id="@+id/exFiveDayFlightTop"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="5dp"-->
-<!--            android:layout_gravity="bottom"-->
-<!--            android:layout_marginBottom="18dp"-->
-<!--            android:background="@color/blue_grey_700" />-->
+        <View
+            android:id="@+id/clientTop"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="18dp"
+            android:background="@color/calendar_text_view_color" />
 
-<!--        <View-->
-<!--            android:id="@+id/exFiveDayFlightBottom"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="5dp"-->
-<!--            android:layout_gravity="bottom"-->
-<!--            android:layout_marginBottom="8dp"-->
-<!--            android:background="@color/brown_700" />-->
+        <View
+            android:id="@+id/clientBottom"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="8dp"
+            android:background="@color/calendar_text_view_color" />
 
     </FrameLayout>
 
