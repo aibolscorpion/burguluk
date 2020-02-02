@@ -28,7 +28,7 @@
                 android:id="@+id/checkInLayout"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:background="@android:color/holo_blue_dark"
+                android:background="@color/calendar_day_background_color"
                 android:layout_weight="2"
                 android:layout_margin="5dp"
                 >
@@ -48,7 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{client.checkInTime}"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/calendar_text_view_color"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintTop_toBottomOf="@+id/check_in_image_view"
@@ -60,7 +60,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:background="@color/colorPrimaryDark"
+                android:background="@color/calendar_day_background_color"
                 android:layout_weight="4"
                 android:layout_margin="5dp"
                 >
@@ -81,7 +81,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{client.avans}"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/calendar_text_view_color"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     
@@ -93,7 +93,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:background="@color/colorPrimaryDark"
+                android:background="@color/calendar_day_background_color"
                 android:layout_weight="4"
                 android:layout_margin="5dp"
                 >
@@ -113,7 +113,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{client.quantity}"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/calendar_text_view_color"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -133,7 +133,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:background="@android:color/holo_red_dark"
+                android:background="@color/calendar_day_background_color"
                 android:id="@+id/checkOutLayout"
                 android:layout_weight="2"
                 android:layout_margin="5dp"
@@ -154,7 +154,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{client.checkOutTime}"
-                android:textColor="@android:color/white"
+                android:textColor="@color/calendar_text_view_color"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@+id/imageView2"
@@ -166,7 +166,7 @@
                 android:id="@+id/debt_layout"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:background="@color/colorPrimaryDark"
+                android:background="@color/calendar_day_background_color"
                 android:layout_weight="4"
                 android:layout_margin="5dp">
 
@@ -186,7 +186,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{client.debt}"
-                android:textColor="@android:color/white"
+                android:textColor="@color/calendar_text_view_color"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -198,11 +198,10 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@color/design_default_color_primary"
+            android:background="@color/calendar_day_background_color"
             android:layout_weight="4"
             android:layout_margin="5dp"
-            android:padding="5dp"
-            android:visibility="@{TextUtils.isEmpty(client.comment) ? View.GONE : View.VISIBLE}">
+            android:padding="5dp">
 
             <TextView
                 android:id="@+id/comment_text_view"
@@ -210,7 +209,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@{client.comment}"
-                android:textColor="@android:color/white"
+                android:textColor="@color/calendar_text_view_color"
                 android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

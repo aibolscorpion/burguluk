@@ -1,15 +1,12 @@
 package kz.shymkent.relaxhouse;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.DialogFragment;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
-import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -17,10 +14,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CalendarView;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
@@ -28,33 +23,38 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.kizitonwose.calendarview.model.CalendarDay;
+import com.kizitonwose.calendarview.ui.DayBinder;
+import com.kizitonwose.calendarview.ui.ViewContainer;
 
-import org.w3c.dom.Text;
+import org.threeten.bp.DayOfWeek;
+import org.threeten.bp.YearMonth;
+import org.threeten.bp.temporal.WeekFields;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
-public class MainActivity extends AppCompatActivity implements CalendarView.OnDateChangeListener {
+public class MainActivity extends AppCompatActivity {
     DatabaseReference databaseClients;
-    CalendarView calendarView;
+    com.kizitonwose.calendarview.CalendarView calendarView;
     RecyclerView recyclerView;
     ClientAdapter clientAdapter;
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d.M.yyyy");
     FloatingActionButton call_FAB;
     List<Client> clients = new ArrayList<>();
     List<Client> newList = new ArrayList<>();
-
+    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        toolbar = findViewById(R.id.appBarLayout);
+        setSupportActionBar(toolbar);
         call_FAB = findViewById(R.id.call_floating_action_button);
         recyclerView = findViewById(R.id.client_info_recycler_view);
         clientAdapter = new ClientAdapter(this);
@@ -63,9 +63,48 @@ public class MainActivity extends AppCompatActivity implements CalendarView.OnDa
         databaseClients = FirebaseDatabase.getInstance().getReference("clients");
 
         calendarView = findViewById(R.id.calendarView);
-        calendarView.setOnDateChangeListener(this);
+
+        calendarView.setDayBinder(new DayBinder<DayViewContainer>() {
+            @Override
+            public DayViewContainer create(View view) {
+                return new DayViewContainer(view);
+            }
+
+            @Override
+            public void bind(DayViewContainer dayViewContainer, CalendarDay calendarDay) {
+                dayViewContainer.day = calendarDay;
+                dayViewContainer.calendar_day_text_view.setText(String.valueOf(calendarDay.getDate().getDayOfMonth()));
+            }
+
+        });
+        YearMonth currentMonth = YearMonth.now();
+        YearMonth firstMonth = currentMonth.minusMonths(10);
+        YearMonth lastMonth = currentMonth.plusMonths(10);
+
+        DayOfWeek firstDayOfWeek = WeekFields.of(Locale.getDefault()).getFirstDayOfWeek();
+        calendarView.setup(firstMonth, lastMonth, firstDayOfWeek);
+        calendarView.scrollToMonth(currentMonth);
     }
 
+
+
+    class DayViewContainer extends ViewContainer{
+
+        CalendarDay day;
+        public TextView calendar_day_text_view;
+        public FrameLayout calendar_day_frame_layout;
+        public DayViewContainer(View view) {
+            super(view);
+            calendar_day_frame_layout = view.findViewById(R.id.calendar_day_frame_layout);
+            calendar_day_frame_layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    setCurrentClientList(day.getDate().getYear(),day.getDate().getMonthValue(),day.getDate().getDayOfMonth());
+                }
+            });
+            calendar_day_text_view = view.findViewById(R.id.calendar_day_text_view);
+        }
+    }
     @Override
     public void onStart() {
         super.onStart();
@@ -81,9 +120,10 @@ public class MainActivity extends AppCompatActivity implements CalendarView.OnDa
 
                 LocalDate currentDay = LocalDate.now();
                 int year =currentDay.getYear();
-                int month = currentDay.getMonthValue()-1;
+                int month = currentDay.getMonthValue();
                 int dayOfMonth = currentDay.getDayOfMonth();
-                onSelectedDayChange(calendarView,year,month,dayOfMonth);
+
+                setCurrentClientList(year,month,dayOfMonth);
             }
 
             @Override
@@ -113,18 +153,16 @@ public class MainActivity extends AppCompatActivity implements CalendarView.OnDa
     public void add_client(View view){
         AddClientDialogFragment addClientDialogFragment = new AddClientDialogFragment();
         addClientDialogFragment.show(getSupportFragmentManager(),"add_client_dialog_fragment");
-
-
     }
 
-    @Override
-    public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+
+    void setCurrentClientList(int year, int month, int dayOfMonth) {
         Log.i("aibol","/onSelectedDayCh4. ange "+year+" "+month+" "+dayOfMonth+" clients size = "+clients.size());
                 newList.clear();
                 for (Client client : clients) {
                     LocalDate date = LocalDate.parse(client.getDate(), dateTimeFormatter);
                     Log.i("aibol","client date = "+date.getYear()+" "+date.getMonthValue()+" "+date.getDayOfMonth());
-                    if (date.getYear() == year && date.getMonthValue() == (month + 1) && date.getDayOfMonth() == dayOfMonth) {
+                    if (date.getYear() == year && date.getMonthValue() == month && date.getDayOfMonth() == dayOfMonth) {
                         newList.add(client);
                     }
                 }

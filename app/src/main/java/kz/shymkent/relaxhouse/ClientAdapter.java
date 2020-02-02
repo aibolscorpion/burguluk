@@ -30,7 +30,6 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ViewHolder
     @Override
     public ClientAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ClientItemBinding clientItemBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),R.layout.client_item,parent,false);
-        clientItemBinding.avansTextView.setPaintFlags(clientItemBinding.avansTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         return new ViewHolder(clientItemBinding);
     }
 

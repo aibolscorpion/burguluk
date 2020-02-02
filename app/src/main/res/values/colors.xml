@@ -3,4 +3,10 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="main_background_color">#0E0E0E</color>
+    <color name="example_5_page_bg_color">#0E0E0E</color>
+    <color name="calendar_day_background_color">#1B1B1B</color>
+    <color name="toolbar_color">#282828</color>
+    <color name="calendar_text_view_color">#bdbdbd</color>
+    <color name="example_5_text_grey_light">#616161</color>
 </resources>

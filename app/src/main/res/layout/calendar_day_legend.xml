@@ -1,0 +1,80 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/legendLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal"
+    tools:ignore="HardcodedText">
+
+    <TextView
+        android:id="@+id/legendText1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="ПОН"
+        android:textColor="@color/calendar_text_view_color"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/legendText2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="ВТО"
+        android:textColor="@color/calendar_text_view_color"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/legendText3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="СРЕ"
+        android:textColor="@color/calendar_text_view_color"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/legendText4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="ЧЕТ"
+        android:textColor="@color/calendar_text_view_color"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/legendText5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="ПЯТ"
+        android:textColor="@color/calendar_text_view_color"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/legendText6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="СУБ"
+        android:textColor="@color/calendar_text_view_color"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/legendText7"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="ВОС"
+        android:textColor="@color/calendar_text_view_color"
+        android:textSize="12sp" />
+
+</LinearLayout>
