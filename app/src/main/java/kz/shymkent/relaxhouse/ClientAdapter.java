@@ -10,19 +10,21 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import kz.shymkent.relaxhouse.databinding.ClientItemBinding;
 
 public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ViewHolder> {
     Context context;
-    List<Client> clientList;
+    List<Client> clientList  = new ArrayList<>();
     public ClientAdapter(Context context){
         this.context = context;
     }
 
     public void setClientList(List<Client> clientList) {
-        this.clientList = clientList;
+        this.clientList.clear();
+        this.clientList.addAll(clientList);
         notifyDataSetChanged();
     }
 

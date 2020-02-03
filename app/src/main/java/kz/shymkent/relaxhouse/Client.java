@@ -1,5 +1,8 @@
 package kz.shymkent.relaxhouse;
 
+import java.text.SimpleDateFormat;
+import java.util.Comparator;
+
 public class Client {
     public String date;
     public String quantity;
@@ -20,6 +23,16 @@ public class Client {
         this.phoneNumber = phoneNumber;
         this.comment = comment;
     }
+    public static Comparator<Client> compareCheckInTime = (s1, s2) -> {
+        String[] timeArray1 = s1.checkInTime.split(":");
+        String[] timeArray2 = s2.checkInTime.split(":");
+        int Id1 = Integer.parseInt(timeArray1[0]);
+        int Id2 = Integer.parseInt(timeArray2[0]);
+
+        /*For ascending order*/
+        return Id1-Id2;
+
+    };
     public String getDate() {
         return date;
     }

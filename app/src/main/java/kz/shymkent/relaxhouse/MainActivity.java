@@ -19,9 +19,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -42,6 +39,8 @@ import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.temporal.WeekFields;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -93,6 +92,37 @@ public class MainActivity extends AppCompatActivity {
         calendarView = findViewById(R.id.calendarView);
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        databaseClients.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                clients.clear();
+                for (DataSnapshot clientSnapshot : dataSnapshot.getChildren()) {
+                    Client client = clientSnapshot.getValue(Client.class);
+                    clients.add(client);
+                }
+                LocalDate currentDay = LocalDate.now();
+
+                clientAdapter.setClientList(getCurrentList(currentDay));
+
+                calendarView.setDayBinder(dayBinder);
+                YearMonth firstMonth = currentMonth.minusMonths(10);
+                YearMonth lastMonth = currentMonth.plusMonths(10);
+                DayOfWeek firstDayOfWeek = WeekFields.of(Locale.getDefault()).getFirstDayOfWeek();
+                calendarView.setup(firstMonth, lastMonth, firstDayOfWeek);
+                calendarView.scrollToMonth(currentMonth);
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
+    }
+
     DayBinder<DayViewContainer> dayBinder = new DayBinder<DayViewContainer>() {
         @Override
         public DayViewContainer create(View view) {
@@ -118,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
 //                if(clients.size() == 1){
 //                    dayViewContainer.clientTop.setBackgroundColor(getColor(R.color.calendar_text_view_color));
 //                }else if(clients.size() == 2){
+//                    dayViewContainer.clientTop.setBackgroundColor(getColor(R.color.calendar_text_view_color));
 //                    dayViewContainer.clientBottom.setBackgroundColor(getColor(R.color.calendar_text_view_color));
 //                }
 //            }
@@ -125,8 +156,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     };
-
-
 
     class DayViewContainer extends ViewContainer{
         View clientTop,clientBottom;
@@ -153,44 +182,12 @@ public class MainActivity extends AppCompatActivity {
             calendar_day_text_view = view.findViewById(R.id.calendar_day_text_view);
         }
     }
-    @Override
-    public void onStart() {
-        super.onStart();
 
-        databaseClients.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                clients.clear();
-                for (DataSnapshot clientSnapshot : dataSnapshot.getChildren()) {
-                    Client client = clientSnapshot.getValue(Client.class);
-                    clients.add(client);
-                }
-                LocalDate currentDay = LocalDate.now();
 
-                clientAdapter.setClientList(getCurrentList(currentDay));
-
-                calendarView.setDayBinder(dayBinder);
-                YearMonth firstMonth = currentMonth.minusMonths(10);
-                YearMonth lastMonth = currentMonth.plusMonths(10);
-                DayOfWeek firstDayOfWeek = WeekFields.of(Locale.getDefault()).getFirstDayOfWeek();
-                calendarView.setup(firstMonth, lastMonth, firstDayOfWeek);
-                calendarView.scrollToMonth(currentMonth);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
-
+    public void add_client(View view){
+        AddClientDialogFragment addClientDialogFragment = new AddClientDialogFragment();
+        addClientDialogFragment.show(getSupportFragmentManager(),"add_client_dialog_fragment");
     }
-
-    @Override
-    public void onResume(){
-        super.onResume();
-
-    }
-
     public void call_client(View view) {
         if(ContextCompat.checkSelfPermission(this,Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.CALL_PHONE},1);
@@ -199,17 +196,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode){
-            case 1:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    call();
-                }
-            break;
-        }
-    }
-
     public void call(){
         if (!TextUtils.isEmpty(newList.get(0).getPhoneNumber())) {
             Intent call_intent = new Intent(Intent.ACTION_CALL);
@@ -219,10 +205,6 @@ public class MainActivity extends AppCompatActivity {
             }
             startActivity(call_intent);
         }
-    }
-    public void add_client(View view){
-        AddClientDialogFragment addClientDialogFragment = new AddClientDialogFragment();
-        addClientDialogFragment.show(getSupportFragmentManager(),"add_client_dialog_fragment");
     }
 
     @SuppressLint("RestrictedApi")
@@ -237,7 +219,17 @@ public class MainActivity extends AppCompatActivity {
                 newList.add(client);
             }
         }
+        Collections.sort(newList, Client.compareCheckInTime);
         return newList;
     }
-
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case 1:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    call();
+                }
+                break;
+        }
+    }
 }
