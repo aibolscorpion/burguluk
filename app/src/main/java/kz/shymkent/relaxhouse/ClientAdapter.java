@@ -10,6 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +21,8 @@ import kz.shymkent.relaxhouse.databinding.ClientItemBinding;
 
 public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ViewHolder> {
     Context context;
+    DateTimeFormatter dateTimeFormatter1 = DateTimeFormatter.ofPattern("d.M.yyyy");
+    DateTimeFormatter dateTimeFormatter2 = DateTimeFormatter.ofPattern("EEE'\n'd MMM");
     List<Client> clientList  = new ArrayList<>();
     public ClientAdapter(Context context){
         this.context = context;
@@ -37,7 +43,16 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ClientAdapter.ViewHolder holder, int position) {
-        Client client = clientList.get(position);
+        Client client = Client.copy(clientList.get(position));
+
+        LocalDate checkInDate = LocalDate.parse(client.getCheckInDate(),dateTimeFormatter1);
+        String checkInDateString = dateTimeFormatter2.format(checkInDate)+"\n"+client.getCheckInTime();
+        client.setCheckInTime(checkInDateString);
+
+        LocalDate checkOutDate = LocalDate.parse(client.getCheckOutDate(),dateTimeFormatter1);
+        String checkOutDateString = dateTimeFormatter2.format(checkOutDate)+"\n"+client.getCheckOutTime();
+        client.setCheckOutTime(checkOutDateString);
+
         holder.clientItemBinding.setClient(client);
     }
 

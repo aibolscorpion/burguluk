@@ -78,7 +78,8 @@
             app:layout_constraintTop_toBottomOf="@+id/calendar_day_legend"
             app:cv_dayViewResource="@layout/calendar_day_layout"
             app:cv_scrollMode="paged"
-            app:cv_orientation="horizontal"/>
+            app:cv_orientation="horizontal"
+            app:cv_outDateStyle="endOfGrid"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/client_info_recycler_view"
@@ -87,8 +88,7 @@
             tools:listitem="@layout/client_item"
             app:layout_constraintTop_toBottomOf="@+id/calendarView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="3dp"/>
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add_floating_action_button"

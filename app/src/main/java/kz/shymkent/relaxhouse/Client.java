@@ -4,7 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Comparator;
 
 public class Client {
-    public String date;
+    public String checkInDate;
+    public String checkOutDate;
     public String quantity;
     public String checkInTime;
     public String checkOutTime;
@@ -13,8 +14,9 @@ public class Client {
     public String phoneNumber;
     public String comment;
     public Client(){};
-    public Client(String date, String quantity, String checkInTime, String checkOutTime, String avans, String debt, String phoneNumber,String comment){
-        this.date = date;
+    public Client(String checkInDate,String checkOutDate, String quantity, String checkInTime, String checkOutTime, String avans, String debt, String phoneNumber,String comment){
+        this.checkInDate = checkInDate;
+        this.checkOutDate = checkOutDate;
         this.quantity = quantity;
         this.checkInTime = checkInTime;
         this.checkOutTime = checkOutTime;
@@ -23,6 +25,20 @@ public class Client {
         this.phoneNumber = phoneNumber;
         this.comment = comment;
     }
+    public static Client copy(Client client){
+        Client newClient = new Client();
+        newClient.checkInDate = client.checkInDate;
+        newClient.checkOutDate = client.checkOutDate;
+        newClient.checkInTime = client.checkInTime;
+        newClient.checkOutTime = client.checkOutTime;
+        newClient.avans = client.avans;
+        newClient.debt = client.debt;
+        newClient.quantity = client.quantity;
+        newClient.comment = client.comment;
+        newClient.phoneNumber = client.phoneNumber;
+        return  newClient;
+    }
+
     public static Comparator<Client> compareCheckInTime = (s1, s2) -> {
         String[] timeArray1 = s1.checkInTime.split(":");
         String[] timeArray2 = s2.checkInTime.split(":");
@@ -33,12 +49,19 @@ public class Client {
         return Id1-Id2;
 
     };
-    public String getDate() {
-        return date;
+    public String getCheckInDate() {
+        return checkInDate;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setCheckInDate(String checkInDate) {
+        this.checkInDate = checkInDate;
+    }
+    public String getCheckOutDate() {
+        return checkOutDate;
+    }
+
+    public void setCheckOutDate(String checkOutDate) {
+        this.checkOutDate = checkOutDate;
     }
 
     public String getQuantity() {

@@ -7,12 +7,8 @@ import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
@@ -44,20 +40,25 @@ public class AddClientDialogFragment extends DialogFragment {
         alertDialogBuilder.setNegativeButton("Отмена", null);
         final AlertDialog alertDialog = alertDialogBuilder.create();
 
-        final EditText add_date_edit_text = view.findViewById(R.id.add_date_edit_text);
-        add_date_edit_text.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity());
-                datePickerDialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        add_date_edit_text.setText(dayOfMonth+"."+(month+1)+"."+year);
-                    }
+        final EditText add_check_in_date_edit_text = view.findViewById(R.id.add_check_in_date_edit_text);
+        add_check_in_date_edit_text.setOnClickListener(v -> {
+            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity());
+            datePickerDialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view1, int year, int month, int dayOfMonth) {
+                    add_check_in_date_edit_text.setText(dayOfMonth+"."+(month+1)+"."+year);
                 }
-                );
-                datePickerDialog.show();
             }
+            );
+            datePickerDialog.show();
+        });
+        final EditText add_check_out_date_edit_text = view.findViewById(R.id.add_check_out_date_edit_text);
+        add_check_out_date_edit_text.setOnClickListener(v -> {
+            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity());
+            datePickerDialog.setOnDateSetListener((view1, year, month, dayOfMonth) ->
+                    add_check_out_date_edit_text.setText(dayOfMonth+"."+(month+1)+"."+year)
+            );
+            datePickerDialog.show();
         });
 
         final EditText add_quantity_edit_text = view.findViewById(R.id.add_quantity_edit_text);
@@ -100,7 +101,7 @@ public class AddClientDialogFragment extends DialogFragment {
                 alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (!TextUtils.isEmpty(add_date_edit_text.getText().toString())
+                        if (!TextUtils.isEmpty(add_check_out_date_edit_text.getText().toString())
                                 && !TextUtils.isEmpty(add_avans_edit_text.getText().toString())
                                 && !TextUtils.isEmpty(add_debt_edit_text.getText().toString())
                                 && !TextUtils.isEmpty(add_phone_number_edit_text.getText().toString())
@@ -108,7 +109,8 @@ public class AddClientDialogFragment extends DialogFragment {
                                 && !TextUtils.isEmpty(add_check_out_time_edit_text.getText().toString())
                                 && !TextUtils.isEmpty(add_quantity_edit_text.getText().toString())) {
                             Client client = new Client();
-                            client.setDate(add_date_edit_text.getText().toString());
+                            client.setCheckInDate(add_check_in_date_edit_text.getText().toString());
+                            client.setCheckOutDate(add_check_out_date_edit_text.getText().toString());
                             client.setAvans(add_avans_edit_text.getText().toString());
                             client.setDebt(add_debt_edit_text.getText().toString());
                             client.setPhoneNumber(add_phone_number_edit_text.getText().toString());

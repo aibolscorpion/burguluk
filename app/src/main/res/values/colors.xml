@@ -9,4 +9,6 @@
     <color name="toolbar_color">#282828</color>
     <color name="calendar_text_view_color">#bdbdbd</color>
     <color name="example_5_text_grey_light">#616161</color>
+    <color name="blue_800">#1565C0</color>
+    <color name="red_800">#c62828</color>
 </resources>

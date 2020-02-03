@@ -35,6 +35,7 @@ import com.kizitonwose.calendarview.ui.ViewContainer;
 
 import org.threeten.bp.DayOfWeek;
 import org.threeten.bp.LocalDate;
+import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.YearMonth;
 import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.temporal.WeekFields;
@@ -101,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
                     clients.add(client);
                 }
                 LocalDate currentDay = LocalDate.now();
-
                 clientAdapter.setClientList(getCurrentList(currentDay));
 
                 calendarView.setDayBinder(dayBinder);
@@ -210,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
         int dayOfMonth = currentDate.getDayOfMonth();
         newList.clear();
         for (Client client : clients) {
-            LocalDate date = LocalDate.parse(client.getDate(),dateTimeFormatter);
+            LocalDate date = LocalDate.parse(client.getCheckInDate(),dateTimeFormatter);
             if (date.getYear() == year && date.getMonthValue() == month && date.getDayOfMonth() == dayOfMonth) {
                 newList.add(client);
             }

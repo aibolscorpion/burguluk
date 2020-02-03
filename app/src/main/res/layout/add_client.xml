@@ -9,23 +9,23 @@
     android:padding="20dp">
 
     <LinearLayout
-        android:id="@+id/add_date_linear_layout"
+        android:id="@+id/add_check_in_date_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/add_quantity_linear_layout"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/add_check_in_time_linear_layout"
         android:orientation="horizontal"
         android:weightSum="10">
 
         <TextView
-            android:id="@+id/add_date_text_view"
+            android:id="@+id/add_check_in_date_text_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="4"
-            android:text="Дата :"/>
+            android:text="Дата заезда:"/>
 
         <EditText
-            android:id="@+id/add_date_edit_text"
+            android:id="@+id/add_check_in_date_edit_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="6"
@@ -36,13 +36,93 @@
             android:textColor="@android:color/black" />
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/add_check_in_time_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/add_check_in_date_linear_layout"
+        app:layout_constraintBottom_toTopOf="@+id/add_check_out_date_linear_layout"
+        android:weightSum="10">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Время заезда :"
+            android:layout_weight="4"
+            />
+        <EditText
+            android:id="@+id/add_check_in_time_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="time"
+            android:layout_weight="6"
+            android:focusable="false"
+            android:hint="14:00"
+            android:gravity="center"
+            android:textColor="@android:color/black"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/add_check_out_date_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="10"
+        mask:layout_constraintBottom_toTopOf="@+id/add_check_out_time_linear_layout"
+        mask:layout_constraintTop_toBottomOf="@+id/add_check_in_time_linear_layout">
+
+        <TextView
+            android:id="@+id/add_check_out_date_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:text="Дата выезда:" />
+
+        <EditText
+            android:id="@+id/add_check_out_date_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            android:focusable="false"
+            android:gravity="center"
+            android:hint="02.01.2020"
+            android:inputType="date"
+            android:textColor="@android:color/black" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/add_check_out_time_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="10"
+        app:layout_constraintTop_toBottomOf="@+id/add_check_out_date_linear_layout"
+        app:layout_constraintBottom_toTopOf="@+id/add_quantity_linear_layout"
+        >
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Время выезда :"
+            android:layout_weight="4"
+            />
+        <EditText
+            android:id="@+id/add_check_out_time_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="time"
+            android:focusable="false"
+            android:hint="12:00"
+            android:gravity="center"
+            android:layout_weight="6"
+            android:onClick="add_check_out_time_edit_text_clicked"
+            android:textColor="@android:color/black"/>
+    </LinearLayout>
+    <LinearLayout
         android:id="@+id/add_quantity_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="10"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/add_date_linear_layout"
-        app:layout_constraintBottom_toTopOf="@+id/add_check_in_time_linear_layout">
+        app:layout_constraintTop_toBottomOf="@+id/add_check_out_time_linear_layout"
+        app:layout_constraintBottom_toTopOf="@+id/add_avans_linear_layout">
 
         <TextView
             android:id="@+id/add_quantity_text_view"
@@ -61,60 +141,7 @@
             android:textColor="@android:color/black"/>
 
     </LinearLayout>
-    <LinearLayout
-        android:id="@+id/add_check_in_time_linear_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_quantity_linear_layout"
-        app:layout_constraintBottom_toTopOf="@+id/add_check_out_time_linear_layout"
-        android:weightSum="10">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Время входа :"
-            android:layout_weight="4"
-            />
-        <EditText
-            android:id="@+id/add_check_in_time_edit_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:inputType="time"
-            android:layout_weight="6"
-            android:focusable="false"
-            android:hint="14:00"
-            android:gravity="center"
-            android:textColor="@android:color/black"/>
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/add_check_out_time_linear_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="10"
-        app:layout_constraintTop_toBottomOf="@+id/add_check_in_time_linear_layout"
-        app:layout_constraintBottom_toTopOf="@+id/add_avans_linear_layout"
-            >
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Время выхода :"
-            android:layout_weight="4"
-            />
-        <EditText
-            android:id="@+id/add_check_out_time_edit_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:inputType="time"
-            android:focusable="false"
-            android:hint="12:00"
-            android:gravity="center"
-            android:layout_weight="6"
-            android:onClick="add_check_out_time_edit_text_clicked"
-            android:textColor="@android:color/black"/>
-    </LinearLayout>
+
     <LinearLayout
         android:id="@+id/add_avans_linear_layout"
         android:layout_width="match_parent"
@@ -123,7 +150,7 @@
         android:weightSum="10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_check_out_time_linear_layout"
+        app:layout_constraintTop_toBottomOf="@+id/add_quantity_linear_layout"
         app:layout_constraintBottom_toTopOf="@+id/add_debt_linear_layout">
         <TextView
             android:layout_width="0dp"
@@ -171,10 +198,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="10"
-        app:layout_constraintBottom_toTopOf="@+id/add_comment_linear_layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/add_debt_linear_layout"
+        app:layout_constraintBottom_toTopOf="@+id/add_comment_linear_layout"
         >
         <TextView
             android:layout_width="0dp"
