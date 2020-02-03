@@ -29,6 +29,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.kizitonwose.calendarview.model.CalendarDay;
+import com.kizitonwose.calendarview.model.CalendarMonth;
 import com.kizitonwose.calendarview.ui.DayBinder;
 import com.kizitonwose.calendarview.ui.ViewContainer;
 
@@ -69,20 +70,15 @@ public class MainActivity extends AppCompatActivity {
         call_FAB = findViewById(R.id.call_floating_action_button);
         recyclerView = findViewById(R.id.client_info_recycler_view);
         previous_month = findViewById(R.id.previousMonthImage);
-        previous_month.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                currentMonth=currentMonth.minusMonths(1);
-                calendarView.smoothScrollToMonth(currentMonth);
-            }
+        previous_month.setOnClickListener(view -> {
+            currentMonth=currentMonth.minusMonths(1);
+            calendarView.smoothScrollToMonth(currentMonth);
         });
         nextMonth = findViewById(R.id.nextMonthImage);
-        nextMonth.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                currentMonth=currentMonth.plusMonths(1);
-                calendarView.smoothScrollToMonth(currentMonth);
-            }
+        nextMonth.setOnClickListener(view -> {
+            currentMonth=currentMonth.plusMonths(1);
+            calendarView.smoothScrollToMonth(currentMonth);
+
         });
         clientAdapter = new ClientAdapter(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -218,6 +214,11 @@ public class MainActivity extends AppCompatActivity {
             if (date.getYear() == year && date.getMonthValue() == month && date.getDayOfMonth() == dayOfMonth) {
                 newList.add(client);
             }
+        }
+        if ((newList.size() == 0)) {
+            call_FAB.setVisibility(View.INVISIBLE);
+        } else {
+            call_FAB.setVisibility(View.VISIBLE);
         }
         Collections.sort(newList, Client.compareCheckInTime);
         return newList;
