@@ -46,6 +46,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
+
 public class MainActivity extends AppCompatActivity {
     org.threeten.bp.LocalDate selectedDate,oldDate;
     DatabaseReference databaseClients;
@@ -58,7 +61,9 @@ public class MainActivity extends AppCompatActivity {
     ImageView nextMonth,previous_month;
     Toolbar toolbar;
     YearMonth currentMonth = YearMonth.now();
+    private DateTimeFormatter monthTitleFormatter = DateTimeFormatter.ofPattern("MMMM");
     MutableLiveData<List<Client>> liveData = new MutableLiveData<>();
+    TextView month_title_text_view;
     List<Client> newList = new ArrayList<>();
 
     @Override
@@ -85,8 +90,15 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(clientAdapter);
         databaseClients = FirebaseDatabase.getInstance().getReference("clients");
-
+        month_title_text_view = findViewById(R.id.month_title_text_view);
         calendarView = findViewById(R.id.calendarView);
+
+        Function1<CalendarMonth, Unit> listener = month -> {
+            String title = monthTitleFormatter.format(month.getYearMonth())+" "+month.getYear();
+            month_title_text_view.setText(title);
+            return Unit.INSTANCE;
+        };
+        calendarView.setMonthScrollListener(listener);
     }
 
     @Override
