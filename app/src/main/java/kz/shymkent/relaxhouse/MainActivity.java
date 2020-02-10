@@ -217,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
             Intent i = new Intent(Intent.ACTION_VIEW);
             try {
                 String text = "Оцените пожалуйста коттедж Relax\nhttps://forms.gle/pCmrMtnME3w9CotYA";
-                String url = "https://api.whatsapp.com/send?phone=" + phoneNumber + "&text=" + URLEncoder.encode(text, "UTF-8");
+                String url = "https://api.whatsapp.com/send?phone=" + phoneNumber + "&text=" + URLEncoder.encode("", "UTF-8");
                 i.setPackage("com.whatsapp");
                 i.setData(Uri.parse(url));
                 if (i.resolveActivity(packageManager) != null) {

@@ -122,5 +122,5 @@
             android:onClick="send_message_to_client"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_send_white" />
+            app:srcCompat="@drawable/ic_whatsapp_white" />
 </androidx.constraintlayout.widget.ConstraintLayout>
