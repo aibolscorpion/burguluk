@@ -22,7 +22,7 @@ import kz.shymkent.relaxhouse.databinding.ClientItemBinding;
 public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ViewHolder> {
     Context context;
     DateTimeFormatter dateTimeFormatter1 = DateTimeFormatter.ofPattern("d.M.yyyy");
-    DateTimeFormatter dateTimeFormatter2 = DateTimeFormatter.ofPattern("EEE'\n'd MMM");
+    DateTimeFormatter dateTimeFormatter2 = DateTimeFormatter.ofPattern("EE'\n'd MMM");
     List<Client> clientList  = new ArrayList<>();
     public ClientAdapter(Context context){
         this.context = context;

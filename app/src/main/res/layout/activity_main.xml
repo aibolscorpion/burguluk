@@ -42,8 +42,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/nextMonthImage"
                 app:layout_constraintStart_toEndOf="@id/previousMonthImage"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="Февраль 2019" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/nextMonthImage"
@@ -112,4 +111,16 @@
             android:layout_marginBottom="100dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/send_floating_action_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="180dp"
+            android:clickable="true"
+            android:onClick="send_message_to_client"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_send_white" />
+</androidx.constraintlayout.widget.ConstraintLayout>
