@@ -1,4 +1,4 @@
-package kz.shymkent.relaxhouse;
+package kz.shymkent.relaxhouse.mainActivity;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -23,17 +23,22 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
 
+import kz.shymkent.relaxhouse.R;
+import kz.shymkent.relaxhouse.models.Client;
+
 public class AddClientDialogFragment extends DialogFragment {
-    DatabaseReference databaseClients;
     Calendar calendar = Calendar.getInstance();
+    MainActivityViewModel viewModel;
+    public AddClientDialogFragment(MainActivityViewModel viewModel){
+        this.viewModel = viewModel;
+    }
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
-        databaseClients = FirebaseDatabase.getInstance().getReference("clients");
         final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.add_client,null);
+        View view = inflater.inflate(R.layout.fragment_add_client,null);
         alertDialogBuilder.setView(view);
         alertDialogBuilder.setTitle("Новый клиент");
         alertDialogBuilder.setPositiveButton("Добавить", null);
@@ -118,8 +123,8 @@ public class AddClientDialogFragment extends DialogFragment {
                             client.setCheckOutTime(add_check_out_time_edit_text.getText().toString());
                             client.setQuantity(add_quantity_edit_text.getText().toString());
                             client.setComment(add_comment_edit_text.getText().toString());
-                            String id = databaseClients.push().getKey();
-                            databaseClients.child(id).setValue(client);
+
+                            viewModel.addClientToFireBaseDB(client);
                             alertDialog.dismiss();
                             Toast.makeText(getContext(), "Новый клиент добавлен", Toast.LENGTH_SHORT).show();
                         }else{
@@ -131,6 +136,5 @@ public class AddClientDialogFragment extends DialogFragment {
         });
         return alertDialog;
     }
-
 }
 

@@ -7,7 +7,7 @@
         <import type="android.text.TextUtils" />
         <variable
             name="client"
-            type="kz.shymkent.relaxhouse.Client" />
+            type="kz.shymkent.relaxhouse.models.Client" />
 
     </data>
 
@@ -18,7 +18,7 @@
         <LinearLayout
             android:id="@+id/first_layout"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             android:orientation="horizontal"
             android:weightSum="7">
@@ -50,7 +50,7 @@
                     android:id="@+id/avans_image_view"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/ic_money_off_white"
+                    android:src="@drawable/ic_avans"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -106,7 +106,7 @@
         </LinearLayout>
             <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:weightSum="7"
             android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@+id/first_layout" >

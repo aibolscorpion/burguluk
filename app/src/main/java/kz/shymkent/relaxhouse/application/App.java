@@ -1,4 +1,4 @@
-package kz.shymkent.relaxhouse;
+package kz.shymkent.relaxhouse.application;
 
 import android.app.Application;
 

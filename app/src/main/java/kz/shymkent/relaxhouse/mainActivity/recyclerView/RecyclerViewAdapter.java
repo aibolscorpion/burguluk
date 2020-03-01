@@ -1,30 +1,32 @@
-package kz.shymkent.relaxhouse;
+package kz.shymkent.relaxhouse.mainActivity.recyclerView;
 
 import android.content.Context;
-import android.graphics.Paint;
-import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.threeten.bp.LocalDate;
-import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import kz.shymkent.relaxhouse.databinding.ClientItemBinding;
+import kz.shymkent.relaxhouse.R;
+import kz.shymkent.relaxhouse.databinding.ItemClientBinding;
+import kz.shymkent.relaxhouse.models.Client;
 
-public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ViewHolder> {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     Context context;
+    private final static int FADE_DURATION = 500;
     DateTimeFormatter dateTimeFormatter1 = DateTimeFormatter.ofPattern("d.M.yyyy");
     DateTimeFormatter dateTimeFormatter2 = DateTimeFormatter.ofPattern("EEE'\n'd MMM");
     List<Client> clientList  = new ArrayList<>();
-    public ClientAdapter(Context context){
+    public RecyclerViewAdapter(Context context){
         this.context = context;
     }
 
@@ -36,13 +38,15 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ViewHolder
 
     @NonNull
     @Override
-    public ClientAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ClientItemBinding clientItemBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),R.layout.client_item,parent,false);
+    public RecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        ItemClientBinding clientItemBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_client,parent,false);
         return new ViewHolder(clientItemBinding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ClientAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, int position) {
+
+        setFadeAnimation(holder.itemView);
         Client client = Client.copy(clientList.get(position));
 
         LocalDate checkInDate = LocalDate.parse(client.getCheckInDate(),dateTimeFormatter1);
@@ -55,15 +59,19 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ViewHolder
 
         holder.clientItemBinding.setClient(client);
     }
-
+    private void setFadeAnimation(View view) {
+        AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
+        anim.setDuration(FADE_DURATION);
+        view.startAnimation(anim);
+    }
     @Override
     public int getItemCount() {
         return (clientList == null) ? 0 : clientList.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
-        private ClientItemBinding clientItemBinding;
-        ViewHolder(@NonNull ClientItemBinding clientItemBinding) {
+        private ItemClientBinding clientItemBinding;
+        ViewHolder(@NonNull ItemClientBinding clientItemBinding) {
             super(clientItemBinding.getRoot());
             this.clientItemBinding = clientItemBinding;
         }

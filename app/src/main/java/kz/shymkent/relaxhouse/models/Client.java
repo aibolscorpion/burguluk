@@ -1,9 +1,9 @@
-package kz.shymkent.relaxhouse;
+package kz.shymkent.relaxhouse.models;
 
-import java.text.SimpleDateFormat;
 import java.util.Comparator;
 
 public class Client {
+    public String key;
     public String checkInDate;
     public String checkOutDate;
     public String quantity;
@@ -115,4 +115,13 @@ public class Client {
     public void setComment(String comment){this.comment = comment;}
 
     public String getComment(){return comment; }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
 }

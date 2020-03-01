@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="viewModel"
+            type="kz.shymkent.relaxhouse.mainActivity.MainActivityViewModel" />
+    </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:background="@color/main_background_color">
 
     <androidx.appcompat.widget.Toolbar
@@ -30,10 +37,10 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_chevron_left" />
+                app:srcCompat="@drawable/ic_previous_month" />
 
             <TextView
-                android:id="@+id/exFiveMonthYearText"
+                android:id="@+id/month_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
@@ -42,8 +49,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/nextMonthImage"
                 app:layout_constraintStart_toEndOf="@id/previousMonthImage"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="Февраль 2019" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/nextMonthImage"
@@ -54,7 +60,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_chevron_right" />
+                app:srcCompat="@drawable/ic_next_month" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -85,7 +91,7 @@
             android:id="@+id/client_info_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/client_item"
+            tools:listitem="@layout/item_client"
             app:layout_constraintTop_toBottomOf="@+id/calendarView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
@@ -95,7 +101,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:onClick="add_client"
+            android:onClick="addClient"
             app:srcCompat="@drawable/ic_add_white"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
@@ -106,10 +112,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:onClick="call_client"
+            android:onClick="callClient"
             app:srcCompat="@drawable/ic_phone_white"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="100dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="@{viewModel.noClient ? View.GONE: View.VISIBLE}"
+            />
     </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
