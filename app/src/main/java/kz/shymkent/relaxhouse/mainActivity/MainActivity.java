@@ -32,6 +32,7 @@ import org.threeten.bp.YearMonth;
 import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.temporal.WeekFields;
 
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Locale;
 
@@ -165,5 +166,21 @@ public class MainActivity extends AppCompatActivity {
         DayOfWeek firstDayOfWeek = WeekFields.of(Locale.getDefault()).getFirstDayOfWeek();
         calendarView.setup(firstMonth, lastMonth, firstDayOfWeek);
         calendarView.scrollToMonth(currentMonth);
+    }
+    public void send_message_to_client(View view) {
+        if (!TextUtils.isEmpty(phoneNumber)) {
+            PackageManager packageManager = getPackageManager();
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            try {
+                String url = "https://api.whatsapp.com/send?phone=" + phoneNumber + "&text=" + URLEncoder.encode("", "UTF-8");
+                i.setPackage("com.whatsapp");
+                i.setData(Uri.parse(url));
+                if (i.resolveActivity(packageManager) != null) {
+                    startActivity(i);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
