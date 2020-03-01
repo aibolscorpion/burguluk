@@ -24,7 +24,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     Context context;
     private final static int FADE_DURATION = 500;
     DateTimeFormatter dateTimeFormatter1 = DateTimeFormatter.ofPattern("d.M.yyyy");
-    DateTimeFormatter dateTimeFormatter2 = DateTimeFormatter.ofPattern("EEE'\n'd MMM");
+    DateTimeFormatter dateTimeFormatter2 = DateTimeFormatter.ofPattern("EE'\n'd MMM");
     List<Client> clientList  = new ArrayList<>();
     public RecyclerViewAdapter(Context context){
         this.context = context;
