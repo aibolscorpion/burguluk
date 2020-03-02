@@ -2,10 +2,13 @@ package kz.shymkent.relaxhouse.mainActivity.calendar;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.os.Build;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
 
 import com.kizitonwose.calendarview.model.CalendarDay;
 import com.kizitonwose.calendarview.model.DayOwner;
@@ -30,6 +33,7 @@ public class CalendarAdapter implements com.kizitonwose.calendarview.ui.DayBinde
     public DayViewContainer create(View view) {
         return new DayViewContainer(view);
     }
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void bind(DayViewContainer dayViewContainer, CalendarDay calendarDay) {
         dayViewContainer.day = calendarDay;
@@ -80,6 +84,7 @@ public class CalendarAdapter implements com.kizitonwose.calendarview.ui.DayBinde
                 });
         }
     }
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void addClientsToCalendar(DayViewContainer dayViewContainer, CalendarDay calendarDay){
         if(calendarDay.getOwner() == DayOwner.THIS_MONTH){
             int size = viewModel.getCurrentDateClientList(calendarDay.getDate(),false);
@@ -96,7 +101,7 @@ public class CalendarAdapter implements com.kizitonwose.calendarview.ui.DayBinde
         }else{
             dayViewContainer.clientTop.setBackground(null);
             dayViewContainer.clientBottom.setBackground(null);
-            dayViewContainer.calendar_day_text_view.setTextColor(context.getColor(R.color.example_5_text_grey_light));
+                dayViewContainer.calendar_day_text_view.setTextColor(context.getColor(R.color.example_5_text_grey_light));
         }
         }
 }

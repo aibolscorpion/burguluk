@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
@@ -120,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
         AddClientDialogFragment addClientDialogFragment = new AddClientDialogFragment(viewModel);
         addClientDialogFragment.show(getSupportFragmentManager(),"add_client_dialog_fragment");
     }
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public void callClient(View view) {
         if(ContextCompat.checkSelfPermission(this,Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.CALL_PHONE},1);
@@ -128,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public void call(){
         if (!TextUtils.isEmpty(phoneNumber)) {
             Intent call_intent = new Intent(Intent.ACTION_CALL);
@@ -139,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @SuppressLint("RestrictedApi")
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
