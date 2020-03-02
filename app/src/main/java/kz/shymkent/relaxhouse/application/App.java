@@ -14,6 +14,7 @@ public class App extends Application {
         super.onCreate();
         mInstance = this;
         AndroidThreeTen.init(this);
+        OneSignal.startInit(this).inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification).unsubscribeWhenNotificationsAreDisabled(true).init();
     }
     public static synchronized App getInstance(){
         return mInstance;
