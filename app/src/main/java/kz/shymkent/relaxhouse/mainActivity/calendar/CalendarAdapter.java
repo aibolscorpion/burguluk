@@ -1,6 +1,5 @@
 package kz.shymkent.relaxhouse.mainActivity.calendar;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Build;
 import android.view.View;
@@ -19,6 +18,7 @@ import org.threeten.bp.LocalDate;
 import kz.shymkent.relaxhouse.mainActivity.MainActivity;
 import kz.shymkent.relaxhouse.mainActivity.MainActivityViewModel;
 import kz.shymkent.relaxhouse.R;
+import kz.shymkent.relaxhouse.models.Client;
 
 public class CalendarAdapter implements com.kizitonwose.calendarview.ui.DayBinder<CalendarAdapter.DayViewContainer> {
     org.threeten.bp.LocalDate selectedDate,oldDate;
@@ -74,9 +74,9 @@ public class CalendarAdapter implements com.kizitonwose.calendarview.ui.DayBinde
 
                 calendar_day_frame_layout.setOnLongClickListener(v -> {
                     if(day.getOwner() == DayOwner.THIS_MONTH){
-                        String key = viewModel.getClientKeyByDate(day.getDate());
-                        if(!key.isEmpty()){
-                            viewModel.removeClientFromFireBaseDB(key);
+                        Client client = viewModel.getClientByDate(day.getDate());
+                        if(client.getKey() != null && !client.getKey().isEmpty()){
+                            viewModel.removeClientFromFireBaseDB(client);
                             Toast.makeText(context, context.getResources().getString(R.string.client_was_removed), Toast.LENGTH_SHORT).show();
                         }
                     }

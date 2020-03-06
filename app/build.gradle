@@ -26,8 +26,8 @@ android {
         applicationId "kz.shymkent.relaxhouse"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 7
-        versionName "1.6"
+        versionCode 8
+        versionName "1.7"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [
                 onesignal_app_id: 'b09323a2-9f2c-47fc-afd6-b451f4419e57',

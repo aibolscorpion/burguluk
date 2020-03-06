@@ -12,7 +12,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.onesignal.OneSignal;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.format.DateTimeFormatter;
 
@@ -71,9 +74,9 @@ public class MainActivityViewModel extends androidx.lifecycle.ViewModel {
         }
         return newList.size();
     }
-    public String getClientKeyByDate(LocalDate currentDate) {
-        String key = "";
+    public Client getClientByDate(LocalDate currentDate) {
         List<Client> newList = new ArrayList<>();
+        Client removeClient = new Client();
         int year = currentDate.getYear();
         int month = currentDate.getMonthValue();
         int dayOfMonth = currentDate.getDayOfMonth();
@@ -85,18 +88,38 @@ public class MainActivityViewModel extends androidx.lifecycle.ViewModel {
             }
         }
         if (!newList.isEmpty()){
-            key  = newList.get(0).getKey();
+            removeClient  = newList.get(0);
         }
-        return key;
+        return removeClient;
     }
     public void addClientToFireBaseDB(Client client ){
         databaseClients = FirebaseDatabase.getInstance().getReference("clients");
         String id = databaseClients.push().getKey();
         databaseClients.child(id).setValue(client);
+        createPushNotification("Добавлен новый клиент на : "+client.getCheckInDate());
     }
-    public void removeClientFromFireBaseDB(String id){
+    public void removeClientFromFireBaseDB(Client client){
         databaseClients = FirebaseDatabase.getInstance().getReference("clients");
-        databaseClients.child(id).removeValue();
+        databaseClients.child(client.getKey()).removeValue();
+        createPushNotification("Клиент "+client.getCheckInDate()+" был удален !");
+    }
+    public void createPushNotification(String text){
+        try {
+            OneSignal.postNotification(new JSONObject("{'contents': {'en':'"+text+"'}, 'include_player_ids': ['" + "aeff2fe7-c0ce-4ccf-943e-6938b25d53e4" + "']}"),
+                    new OneSignal.PostNotificationResponseHandler() {
+                        @Override
+                        public void onSuccess(JSONObject response) {
+                            Log.i("OneSignalExample", "postNotification Success: " + response.toString());
+                        }
+
+                        @Override
+                        public void onFailure(JSONObject response) {
+                            Log.e("OneSignalExample", "postNotification Failure: " + response.toString());
+                        }
+                    });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
     public LiveData<List<Client>> getCurrentListLiveData(){
         return currentListMutableLiveData;
