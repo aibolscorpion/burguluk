@@ -3,16 +3,16 @@ package kz.shymkent.relaxhouse.models;
 import java.util.Comparator;
 
 public class Client {
-    public String key;
-    public String checkInDate;
-    public String checkOutDate;
-    public String quantity;
-    public String checkInTime;
-    public String checkOutTime;
-    public String avans;
-    public String debt;
-    public String phoneNumber;
-    public String comment;
+    public String key="";
+    public String checkInDate="";
+    public String checkOutDate="";
+    public String quantity="";
+    public String checkInTime="";
+    public String checkOutTime="";
+    public String avans="";
+    public String debt="";
+    public String phoneNumber="";
+    public String comment="";
     public Client(){};
     public Client(String checkInDate,String checkOutDate, String quantity, String checkInTime, String checkOutTime, String avans, String debt, String phoneNumber,String comment){
         this.checkInDate = checkInDate;

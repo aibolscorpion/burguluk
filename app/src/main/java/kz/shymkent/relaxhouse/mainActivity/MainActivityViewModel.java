@@ -31,6 +31,7 @@ public class MainActivityViewModel extends androidx.lifecycle.ViewModel {
     MutableLiveData<List<Client>> currentListMutableLiveData = new MutableLiveData<>();
     MutableLiveData<List<Client>> allClientsMutableLiveData = new MutableLiveData<>();
     public ObservableBoolean noClient = new ObservableBoolean();
+
     public void getAllClientsFromFirebase(){
         databaseClients = FirebaseDatabase.getInstance().getReference("clients");
         databaseClients.addValueEventListener(new ValueEventListener() {
@@ -105,7 +106,7 @@ public class MainActivityViewModel extends androidx.lifecycle.ViewModel {
     }
     public void createPushNotification(String text){
         try {
-            OneSignal.postNotification(new JSONObject("{'contents': {'en':'"+text+"'}, 'include_player_ids': ['" + "aeff2fe7-c0ce-4ccf-943e-6938b25d53e4" + "']}"),
+            OneSignal.postNotification(new JSONObject("{'contents': {'en':'"+text+"'}, 'include_player_ids': ['" + "7552ae26-dc08-4412-95a5-11f994cad11c" + "']}"),
                     new OneSignal.PostNotificationResponseHandler() {
                         @Override
                         public void onSuccess(JSONObject response) {

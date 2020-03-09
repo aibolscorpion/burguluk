@@ -41,6 +41,7 @@ import java.util.Locale;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 import kz.shymkent.relaxhouse.databinding.ActivityMainBinding;
+import kz.shymkent.relaxhouse.mainActivity.addClientFragment.AddClientDialogFragment;
 import kz.shymkent.relaxhouse.mainActivity.calendar.CalendarAdapter;
 import kz.shymkent.relaxhouse.mainActivity.recyclerView.RecyclerViewAdapter;
 import kz.shymkent.relaxhouse.R;
