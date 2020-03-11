@@ -1,21 +1,16 @@
-package kz.shymkent.relaxhouse.mainActivity.addClientFragment;
+package kz.shymkent.relaxhouse.addClientFragment;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Build;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
-import androidx.databinding.ObservableField;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 
 import java.util.Calendar;
 
@@ -38,35 +33,28 @@ public class Handler {
         this.alertDialog = alertDialog;
         fragmentAddClientBinding.setClient(client);
     }
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    public void setCheckInDate(View view){showCheckInDatePickerDialog();}
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    public void setCheckOutDate(View view){
-        showCheckOutDatePickerDialog();
-    }
-    public void setCheckInTime(View view){ showCheckInTimePickerDialog();}
-    public void setCheckOutTime(View view){ showCheckOutTimePickerDialog();  }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private void showCheckInDatePickerDialog(){
+    public void showCheckInDatePickerDialog( ){
         DatePickerDialog datePickerDialog = new DatePickerDialog(context);
-        datePickerDialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view1, int year, int month, int dayOfMonth) {
-                client.checkInDate = dayOfMonth + "." + (month + 1) + "." + year;
-                fragmentAddClientBinding.invalidateAll();
+                  client.checkInDate = dayOfMonth + "." + (month + 1) + "." + year;
+                showCheckInTimePickerDialog();
             }
-        });
+        };
+        datePickerDialog.setOnDateSetListener(listener);
         datePickerDialog.show();
     }
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private void showCheckOutDatePickerDialog(){
+    public void showCheckOutDatePickerDialog(){
         DatePickerDialog datePickerDialog = new DatePickerDialog(context);
         datePickerDialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view1, int year, int month, int dayOfMonth) {
                 client.checkOutDate = dayOfMonth + "." + (month + 1) + "." + year;
-                fragmentAddClientBinding.invalidateAll();
+                showCheckOutTimePickerDialog();
             }
         });
         datePickerDialog.show();

@@ -6,7 +6,7 @@
         <import type="android.text.TextUtils"/>
         <variable
             name="handler"
-            type="kz.shymkent.relaxhouse.mainActivity.addClientFragment.Handler" />
+            type="kz.shymkent.relaxhouse.addClientFragment.Handler" />
         <variable
             name="client"
             type="kz.shymkent.relaxhouse.models.Client" />
@@ -14,63 +14,38 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="20dp">
+        android:padding="10dp">
     
         <LinearLayout
             android:id="@+id/add_check_in_date_linear_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/add_check_in_time_linear_layout"
+            app:layout_constraintBottom_toTopOf="@+id/add_check_out_date_linear_layout"
             android:orientation="horizontal"
-            android:weightSum="10">
+            android:weightSum="10"
+            android:gravity="center"
+            android:layout_marginTop="10dp">
     
             <TextView
                 android:id="@+id/add_check_in_date_text_view"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
-                android:text="Дата заезда:"/>
+                android:text="Дата и время заезда:"/>
     
             <EditText
                 android:id="@+id/add_check_in_date_edit_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="6"
-                android:hint="01.01.2020"
+                android:hint="01.01.2020 14:00"
                 android:gravity="center"
                 android:focusable="false"
                 android:inputType="date"
                 android:textColor="@android:color/black"
-                android:text="@={client.checkInDate}"
-                android:onClick="@{handler::setCheckInDate}"/>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/add_check_in_time_linear_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/add_check_in_date_linear_layout"
-            app:layout_constraintBottom_toTopOf="@+id/add_check_out_date_linear_layout"
-            android:weightSum="10">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Время заезда :"
-                android:layout_weight="4"
-                />
-            <EditText
-                android:id="@+id/add_check_in_time_edit_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:inputType="time"
-                android:layout_weight="6"
-                android:focusable="false"
-                android:hint="14:00"
-                android:gravity="center"
-                android:textColor="@android:color/black"
-                android:text="@={client.checkInTime}"
-                android:onClick="@{handler::setCheckInTime}"/>
+                android:text='@{(TextUtils.isEmpty(client.checkInDate) &amp;&amp; TextUtils.isEmpty(client.checkInTime))? "" : client.checkInDate+" "+client.checkInTime}'
+                android:onClick="@{() -> handler.showCheckInDatePickerDialog()}"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/add_check_out_date_linear_layout"
@@ -78,67 +53,44 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="10"
-            app:layout_constraintBottom_toTopOf="@+id/add_check_out_time_linear_layout"
-            app:layout_constraintTop_toBottomOf="@+id/add_check_in_time_linear_layout">
+            app:layout_constraintBottom_toTopOf="@+id/add_quantity_linear_layout"
+            app:layout_constraintTop_toBottomOf="@+id/add_check_in_date_linear_layout"
+            android:gravity="center"
+            android:layout_marginTop="10dp">
 
             <TextView
                 android:id="@+id/add_check_out_date_text_view"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
-                android:text="Дата выезда:" />
+                android:lines="2"
+                android:text="Дата и время выезда:" />
 
             <EditText
                 android:id="@+id/add_check_out_date_edit_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="6"
+                android:hint="02.01.2020 12:00"
                 android:focusable="false"
                 android:gravity="center"
-                android:hint="02.01.2020"
                 android:inputType="date"
                 android:textColor="@android:color/black"
-                android:text="@={client.checkOutDate}"
-                android:onClick="@{handler::setCheckOutDate}"
-                android:layout_gravity="bottom" />
+                android:text='@{(TextUtils.isEmpty(client.checkOutDate) &amp;&amp; TextUtils.isEmpty(client.checkOutTime))? "" : client.checkOutDate+" "+client.checkOutTime}'
+                android:onClick="@{() -> handler.showCheckOutDatePickerDialog()}" />
+
         </LinearLayout>
-    
-        <LinearLayout
-            android:id="@+id/add_check_out_time_linear_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="10"
-            app:layout_constraintTop_toBottomOf="@+id/add_check_out_date_linear_layout"
-            app:layout_constraintBottom_toTopOf="@+id/add_quantity_linear_layout"
-            >
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Время выезда :"
-                android:layout_weight="4"
-                />
-            <EditText
-                android:id="@+id/add_check_out_time_edit_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:inputType="time"
-                android:focusable="false"
-                android:hint="12:00"
-                android:gravity="center"
-                android:layout_weight="6"
-                android:textColor="@android:color/black"
-                android:text="@={client.checkOutTime}"
-                android:onClick="@{handler::setCheckOutTime}"/>
-        </LinearLayout>
+
         <LinearLayout
             android:id="@+id/add_quantity_linear_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:weightSum="10"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/add_check_out_time_linear_layout"
-            app:layout_constraintBottom_toTopOf="@+id/add_avans_linear_layout">
+            app:layout_constraintTop_toBottomOf="@+id/add_check_out_date_linear_layout"
+            app:layout_constraintBottom_toTopOf="@+id/add_avans_linear_layout"
+            android:gravity="center"
+            android:layout_marginTop="10dp">
     
             <TextView
                 android:id="@+id/add_quantity_text_view"
@@ -168,7 +120,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/add_quantity_linear_layout"
-            app:layout_constraintBottom_toTopOf="@+id/add_debt_linear_layout">
+            app:layout_constraintBottom_toTopOf="@+id/add_debt_linear_layout"
+            android:gravity="center"
+            android:layout_marginTop="10dp">
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -195,7 +149,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/add_avans_linear_layout"
-            app:layout_constraintBottom_toTopOf="@+id/add_phone_number_linear_layout">
+            app:layout_constraintBottom_toTopOf="@+id/add_phone_number_linear_layout"
+            android:gravity="center"
+            android:layout_marginTop="10dp">
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -219,6 +175,8 @@
             android:weightSum="10"
             app:layout_constraintTop_toBottomOf="@+id/add_debt_linear_layout"
             app:layout_constraintBottom_toTopOf="@+id/add_comment_linear_layout"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
             >
             <TextView
                 android:layout_width="0dp"
@@ -247,6 +205,8 @@
             app:layout_constraintBottom_toTopOf="@+id/buttons_linear_layout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
             >
             <TextView
                 android:layout_width="0dp"
@@ -275,6 +235,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:orientation="horizontal"
+            android:layout_marginTop="10dp"
             >
             <Button
                 android:id="@+id/cancel_button"
