@@ -25,6 +25,9 @@ import java.util.List;
 import kz.shymkent.relaxhouse.models.Client;
 
 public class MainActivityViewModel extends androidx.lifecycle.ViewModel {
+    final String COTTAGE_OWNER_PLAYER_ID = "7552ae26-dc08-4412-95a5-11f994cad11c";
+    final String COTTAGE_ADMINISTRATOR_PLAYER_ID = "a6751645-77fa-402d-b187-78c123864f76";
+    final String COTTAGE_CLEANER_PLAYER_ID = "d12c49e5-a4b9-4c94-b571-689af706963e";
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d.M.yyyy");
     DatabaseReference databaseClients;
     List<Client> clients = new ArrayList<>();
@@ -106,7 +109,7 @@ public class MainActivityViewModel extends androidx.lifecycle.ViewModel {
     }
     public void createPushNotification(String text){
         try {
-            OneSignal.postNotification(new JSONObject("{'contents': {'en':'"+text+"'}, 'include_player_ids': ['" + "7552ae26-dc08-4412-95a5-11f994cad11c" + "']}"),
+            OneSignal.postNotification(new JSONObject("{'contents': {'en':'"+text+"'}, 'include_player_ids': [" + "'"+COTTAGE_OWNER_PLAYER_ID+"','"+COTTAGE_ADMINISTRATOR_PLAYER_ID+"','"+COTTAGE_CLEANER_PLAYER_ID+"']}"),
                     new OneSignal.PostNotificationResponseHandler() {
                         @Override
                         public void onSuccess(JSONObject response) {
