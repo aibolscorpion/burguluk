@@ -75,7 +75,7 @@ public class CalendarAdapter implements com.kizitonwose.calendarview.ui.DayBinde
                 calendar_day_frame_layout.setOnLongClickListener(v -> {
                     if(day.getOwner() == DayOwner.THIS_MONTH){
                         Client client = viewModel.getClientByDate(day.getDate());
-                        if(client.getKey() != null && !client.getKey().isEmpty()){
+                        if(!client.getCheckInTime().isEmpty()){
                             viewModel.removeClientFromFireBaseDB(client);
                             Toast.makeText(context, context.getResources().getString(R.string.client_was_removed), Toast.LENGTH_SHORT).show();
                         }

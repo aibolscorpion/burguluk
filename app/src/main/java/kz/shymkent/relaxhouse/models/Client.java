@@ -3,7 +3,6 @@ package kz.shymkent.relaxhouse.models;
 import java.util.Comparator;
 
 public class Client {
-    public String key="";
     public String checkInDate="";
     public String checkOutDate="";
     public String quantity="";
@@ -116,12 +115,5 @@ public class Client {
 
     public String getComment(){return comment; }
 
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
 
 }

@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addClient(View view){
-        AddClientDialogFragment addClientDialogFragment = new AddClientDialogFragment(viewModel);
+        AddClientDialogFragment addClientDialogFragment = new AddClientDialogFragment();
         addClientDialogFragment.show(getSupportFragmentManager(),"add_client_dialog_fragment");
     }
     @RequiresApi(api = Build.VERSION_CODES.M)
