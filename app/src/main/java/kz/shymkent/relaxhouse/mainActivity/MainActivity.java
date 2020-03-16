@@ -69,6 +69,9 @@ public class MainActivity extends AppCompatActivity {
         activityMainBinding = DataBindingUtil.setContentView(this,R.layout.activity_main);
         viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
         activityMainBinding.setViewModel(viewModel);
+
+        viewModel.getCottageNameAfterLogin();
+
         toolbar = findViewById(R.id.appBarLayout);
         setSupportActionBar(toolbar);
         calendarView = findViewById(R.id.calendarView);
@@ -97,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 
         LocalDate today = LocalDate.now();
-        viewModel.getAllClientsFromFirebase();
         viewModel.getAllClientsLiveData().observe(this, new Observer<List<Client>>() {
             @Override
             public void onChanged(List<Client> clients) {

@@ -1,9 +1,14 @@
 package kz.shymkent.relaxhouse.mainActivity;
 
+import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableBoolean;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -25,10 +30,11 @@ import java.util.List;
 
 import kz.shymkent.relaxhouse.Constants;
 import kz.shymkent.relaxhouse.PushNotification;
+import kz.shymkent.relaxhouse.SharedPreferencesTools;
 import kz.shymkent.relaxhouse.models.Client;
 import kz.shymkent.relaxhouse.models.Cottage;
 
-public class MainActivityViewModel extends androidx.lifecycle.ViewModel {
+public class MainActivityViewModel extends AndroidViewModel {
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d.M.yyyy");
     DatabaseReference cottagesReference = FirebaseDatabase.getInstance().getReference("cottages");
     List<Client> clients = new ArrayList<>();
@@ -36,8 +42,41 @@ public class MainActivityViewModel extends androidx.lifecycle.ViewModel {
     MutableLiveData<List<Client>> allClientsMutableLiveData = new MutableLiveData<>();
     public ObservableBoolean noClient = new ObservableBoolean();
 
+    public MainActivityViewModel(@NonNull Application application) {
+        super(application);
+    }
+
+    public void getCottageNameAfterLogin(){
+        String firebasePhoneNumber = SharedPreferencesTools.getPhoneNumber();
+        cottagesReference.addValueEventListener(new ValueEventListener() {
+            boolean cottageFound = false;
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot cottageSnapshot : dataSnapshot.getChildren()){
+                    Cottage cottage = cottageSnapshot.getValue(Cottage.class);
+                    for(String dataBasePhoneNumber : cottage.getPhoneNumbers()){
+                        if(dataBasePhoneNumber.equals(firebasePhoneNumber)){
+                            SharedPreferencesTools.saveCottageName(cottage.getName());
+                            getAllClientsFromFirebase();
+                            cottageFound = true;
+                            return;
+                        }
+                    }
+                }
+                if(!cottageFound){
+                    Toast.makeText(getApplication(),"Нужно добавить коттедж в приложение",Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
     public void getAllClientsFromFirebase(){
-        cottagesReference.child(Constants.COTTAGE_NAME).child("clients").addValueEventListener(new ValueEventListener() {
+        cottagesReference.child(SharedPreferencesTools.getCottagename()).child("clients").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 clients.clear();
@@ -95,7 +134,7 @@ public class MainActivityViewModel extends androidx.lifecycle.ViewModel {
         return removeClient;
     }
     public void removeClientFromFireBaseDB(Client client){
-        cottagesReference.child(Constants.COTTAGE_NAME).child(Constants.CLIENTS).child(client.checkInDate.replace(".","")).removeValue();
+        cottagesReference.child(SharedPreferencesTools.getCottagename()).child(Constants.CLIENTS).child(client.checkInDate.replace(".","")).removeValue();
         PushNotification.createPushNotification("Клиент "+client.getCheckInDate()+" был удален !");
     }
 
@@ -109,6 +148,12 @@ public class MainActivityViewModel extends androidx.lifecycle.ViewModel {
     public void addNewCottage(String name){
         Cottage cottage = new Cottage();
         cottage.setName(name);
+
+        ArrayList<String> phoneNumbers = new ArrayList<>();
+        phoneNumbers.add("+77755105107");
+
+        cottage.setPhoneNumbers(phoneNumbers);
         cottagesReference.child(name).setValue(cottage);
+
     }
 }
