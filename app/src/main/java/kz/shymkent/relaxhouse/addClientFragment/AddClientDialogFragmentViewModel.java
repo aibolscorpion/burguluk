@@ -12,7 +12,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import kz.shymkent.relaxhouse.Constants;
 import kz.shymkent.relaxhouse.PushNotification;
+import kz.shymkent.relaxhouse.R;
 import kz.shymkent.relaxhouse.SharedPreferencesTools;
+import kz.shymkent.relaxhouse.application.App;
 import kz.shymkent.relaxhouse.models.Client;
 
 
@@ -26,7 +28,7 @@ public class AddClientDialogFragmentViewModel extends AndroidViewModel {
 
     public void addClientToFireBaseDB(Client client ){
         cottagesReference.child(SharedPreferencesTools.getCottagename()).child(Constants.CLIENTS).child(client.checkInDate.replace(".","")).setValue(client);
-        PushNotification.createPushNotification("Добавлен новый клиент на : "+client.getCheckInDate());
+        PushNotification.createPushNotification( getApplication().getString(R.string.added_new_client,client.getCheckInDate()));
     }
 
 }

@@ -39,7 +39,7 @@
                         android:id="@+id/autorization_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Авторизация"
+                        android:text="@string/authentication"
                         android:textStyle="bold"
                         android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -57,7 +57,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Номер телефона:"
+                            android:text="@string/phone_number"
                             />
                         <br.com.sapereaude.maskedEditText.MaskedEditText
                             android:id="@+id/phone_edit_text"
@@ -68,13 +68,13 @@
                             android:padding="10dp"
                             android:text="@={viewModel.phoneNumber}"
                             android:enabled="@{viewModel.phoneEditTextEnabled}"
-                            app:mask="+7(###)###-##-##"
+                            app:mask="@string/phone_number_mask"
                             app:allowed_chars="1234567890"
                             />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Код верификации:"
+                            android:text="@string/verification_code"
                             android:visibility="@{viewModel.phoneEditTextEnabled ? View.GONE : View.VISIBLE}"
                             />
                         <EditText
@@ -83,7 +83,7 @@
                             android:layout_height="wrap_content"
                             android:ems="10"
                             android:visibility="@{viewModel.phoneEditTextEnabled ? View.GONE : View.VISIBLE}"
-                            android:hint="******"
+                            android:hint="@string/verification_code_hint"
                             android:inputType="number"
                             android:padding="10dp"
                             android:text="@={viewModel.verificationCode}" />
@@ -92,7 +92,7 @@
                         android:id="@+id/button"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:text='@{viewModel.phoneEditTextEnabled ? "Отправить код" : "Войти"}'
+                        android:text='@{viewModel.phoneEditTextEnabled ? @string/send_code : @string/enter}'
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHeight_percent="0.15"

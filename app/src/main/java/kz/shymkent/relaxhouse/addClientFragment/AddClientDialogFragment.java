@@ -42,7 +42,7 @@ public class AddClientDialogFragment extends DialogFragment {
         fragmentAddClientBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_add_client,null,false);
         View view = fragmentAddClientBinding.getRoot();
         alertDialogBuilder.setView(view);
-        alertDialogBuilder.setTitle("Новый клиент");
+        alertDialogBuilder.setTitle(getString(R.string.new_client));
         alertDialog = alertDialogBuilder.create();
         fragmentAddClientBinding.setClient(client);
         fragmentAddClientBinding.setAddClientDialogFragment(this);
@@ -98,10 +98,10 @@ public class AddClientDialogFragment extends DialogFragment {
         if(!client.getCheckInDate().isEmpty() && !client.getCheckInTime().isEmpty() && ! client.getCheckOutDate().isEmpty() && !client.getCheckOutTime().isEmpty()
                 && !client.getQuantity().isEmpty() && !client.getAvans().isEmpty() && !client.getDebt().isEmpty() && !client.getPhoneNumber().isEmpty()){
             viewModel.addClientToFireBaseDB(client);
-            Toast.makeText(getContext(), "Новый клиент добавлен", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getString(R.string.new_client_added), Toast.LENGTH_SHORT).show();
             alertDialog.dismiss();
         }else{
-            Toast.makeText(getContext(), "Заполните пустые поля", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getString(R.string.fill_empty_fields), Toast.LENGTH_SHORT).show();
         }
 
     }

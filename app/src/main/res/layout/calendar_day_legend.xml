@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="ПОН"
+        android:text="@string/monday"
         android:textColor="@color/calendar_text_view_color"
         android:textSize="12sp" />
 
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="ВТО"
+        android:text="@string/tuesday"
         android:textColor="@color/calendar_text_view_color"
         android:textSize="12sp" />
 
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="СРЕ"
+        android:text="@string/wednesday"
         android:textColor="@color/calendar_text_view_color"
         android:textSize="12sp" />
 
@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="ЧЕТ"
+        android:text="@string/thursday"
         android:textColor="@color/calendar_text_view_color"
         android:textSize="12sp" />
 
@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="ПЯТ"
+        android:text="@string/friday"
         android:textColor="@color/calendar_text_view_color"
         android:textSize="12sp" />
 
@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="СУБ"
+        android:text="@string/saturday"
         android:textColor="@color/calendar_text_view_color"
         android:textSize="12sp" />
 
@@ -73,7 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="ВОС"
+        android:text="@string/sunday"
         android:textColor="@color/calendar_text_view_color"
         android:textSize="12sp" />
 

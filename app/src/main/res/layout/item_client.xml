@@ -176,7 +176,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Нужно найти повара и поменять воду в бассейне" />
+                tools:text="@string/comment_hint" />
         </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </LinearLayout>
