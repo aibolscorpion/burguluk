@@ -6,8 +6,14 @@
     <data>
         <import type="android.view.View" />
         <variable
+            name="mainActivity"
+            type="kz.shymkent.relaxhouse.mainActivity.MainActivity" />
+        <variable
             name="viewModel"
             type="kz.shymkent.relaxhouse.mainActivity.MainActivityViewModel" />
+        <variable
+            name="client"
+            type="kz.shymkent.relaxhouse.models.Client" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -33,11 +39,11 @@
                 android:layout_height="36dp"
                 android:layout_marginEnd="22dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:tint="@color/calendar_text_view_color"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_previous_month" />
+                app:srcCompat="@drawable/ic_previous_month"
+                app:tint="@color/calendar_text_view_color" />
 
             <TextView
                 android:id="@+id/month_text_view"
@@ -56,15 +62,13 @@
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:tint="@color/calendar_text_view_color"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_next_month" />
+                app:srcCompat="@drawable/ic_next_month"
+                app:tint="@color/calendar_text_view_color" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
     </androidx.appcompat.widget.Toolbar>
 
     <include
@@ -77,61 +81,70 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_gravity="center"
         />
-        <com.kizitonwose.calendarview.CalendarView
-            android:id="@+id/calendarView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/calendar_day_legend"
-            app:cv_dayViewResource="@layout/calendar_day_layout"
-            app:cv_scrollMode="paged"
-            app:cv_orientation="horizontal"
-            app:cv_outDateStyle="endOfGrid"/>
+    <com.kizitonwose.calendarview.CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/calendar_day_legend"
+        app:cv_dayViewResource="@layout/calendar_day_layout"
+        app:cv_scrollMode="paged"
+        app:cv_orientation="horizontal"
+        app:cv_outDateStyle="endOfGrid"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/client_info_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:listitem="@layout/item_client"
-            app:layout_constraintTop_toBottomOf="@+id/calendarView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+    <include
+        android:id="@+id/client_information_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/item_client"
+        app:client="@{client}"
+        app:layout_constraintTop_toBottomOf="@+id/calendarView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="@{viewModel.isDayHaveClientObservableBoolean ? View.VISIBLE : View.GONE}"
+        />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/send_floating_action_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="180dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="@{() -> mainActivity.send_message_to_client()}"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_whatsapp_white"
+        android:visibility="@{viewModel.isDayHaveClientObservableBoolean ? View.VISIBLE : View.GONE}" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/call_floating_action_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:onClick="@{() -> mainActivity.callClient()}"
+        android:focusable="true"
+        app:srcCompat="@drawable/ic_phone_white"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="@{viewModel.isDayHaveClientObservableBoolean ?  View.VISIBLE : View.GONE}"
+        />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add_floating_action_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:onClick="addClient"
+            android:focusable="true"
+            android:onClick="@{() -> mainActivity.addClient()}"
             app:srcCompat="@drawable/ic_add_white"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/call_floating_action_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:onClick="callClient"
-            app:srcCompat="@drawable/ic_phone_white"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="100dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:visibility="@{viewModel.noClient ? View.GONE: View.VISIBLE}"
-            />
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/send_floating_action_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="180dp"
-            android:clickable="true"
-            android:onClick="send_message_to_client"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_whatsapp_white"
-            android:visibility="@{viewModel.noClient ? View.GONE: View.VISIBLE}"
-            />
+            app:layout_constraintEnd_toEndOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

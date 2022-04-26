@@ -1,22 +1,22 @@
 <resources>
     <string name="app_name">Relax</string>
-    <string name="client_was_removed">Клиент удалён !</string>
+    <string name="client_was_removed">Клиент удалён</string>
     <string name="new_client">Новый клиент</string>
     <string name="new_client_added">Новый клиент добавлен</string>
     <string name="fill_empty_fields">Заполните пустые поля</string>
-    <string name="comment_hint">Нужно найти повара и поменять воду в бассейне</string>
+    <string name="comment_hint">Поменять воду в бассейне</string>
     <string name="check_in_date_time">Дата и время заезда:</string>
-    <string name="check_in_date_time_hint">01.01.2020 14:00</string>
+    <string name="check_in_date_time_hint">22 Апреля 14:00</string>
     <string name="check_out_date_time">Дата и время выезда:</string>
-    <string name="check_out_date_time_hint">02.01.2020 12:00</string>
+    <string name="check_out_date_time_hint">23 Апреля 12:00</string>
     <string name="quantity">Количество : </string>
-    <string name="quantity_hint">10</string>
+    <string name="quantity_hint">10 человек</string>
     <string name="avans">Задаток :</string>
-    <string name="avans_hint">10000</string>
+    <string name="avans_hint">10000 тг.</string>
     <string name="debt">Остаток :</string>
-    <string name="debt_hint">60000</string>
+    <string name="debt_hint">70000 тг.</string>
     <string name="phone_number">Номер тел. :</string>
-    <string name="phone_number_hint">7777777777</string>
+    <string name="phone_number_hint">87771112233</string>
     <string name="comment">Коментарий :</string>
     <string name="cancel">Отмена</string>
     <string name="add">Добавить</string>
@@ -32,6 +32,9 @@
     <string name="verification_code_hint">******</string>
     <string name="send_code">Отправить код</string>
     <string name="enter">Войти</string>
-    <string name="phone_number_mask">"+7(###)###-##-##</string>
-    <string name="added_new_client">Добавлен новый клиент на : %s</string>
+    <string name="verification_code_sent_to_your_number">Код подтверждение отправлено на ваш номер !</string>
+    <string name="added_new_client">Новый клиент : %s</string>
+    <string name="invalid_verification_code">Введенный вами код неверный !</string>
+    <string name="add_cottage_to_app">Нужно добавить коттедж в приложение</string>
+    <string name="client_with_date_was_removed">Клиент удалён : %s</string>
 </resources>

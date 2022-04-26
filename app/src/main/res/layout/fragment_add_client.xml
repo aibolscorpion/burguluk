@@ -44,7 +44,7 @@
                 android:focusable="false"
                 android:inputType="date"
                 android:textColor="@android:color/black"
-                android:text='@{(TextUtils.isEmpty(client.checkInDate) &amp;&amp; TextUtils.isEmpty(client.checkInTime))? "" : client.checkInDate+" "+client.checkInTime}'
+                android:text='@{(TextUtils.isEmpty(client.checkInDate) &amp;&amp; TextUtils.isEmpty(client.checkInTime))? "" : client.formatDateForOneSignal(client.checkInDate, client.checkInTime)}'
                 android:onClick="@{() -> addClientDialogFragment.showCheckInDatePickerDialog()}"/>
         </LinearLayout>
         <LinearLayout
@@ -76,7 +76,7 @@
                 android:gravity="center"
                 android:inputType="date"
                 android:textColor="@android:color/black"
-                android:text='@{(TextUtils.isEmpty(client.checkOutDate) &amp;&amp; TextUtils.isEmpty(client.checkOutTime))? "" : client.checkOutDate+" "+client.checkOutTime}'
+                android:text='@{(TextUtils.isEmpty(client.checkOutDate) &amp;&amp; TextUtils.isEmpty(client.checkOutTime))? "" : client.formatDateForOneSignal(client.checkOutDate,client.checkOutTime)}'
                 android:onClick="@{() -> addClientDialogFragment.showCheckOutDatePickerDialog()}" />
 
         </LinearLayout>
@@ -183,7 +183,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/phone_number"
                 android:layout_weight="4" />
-            <br.com.sapereaude.maskedEditText.MaskedEditText
+            <EditText
                 android:id="@+id/add_phone_number_edit_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -191,9 +191,7 @@
                 android:gravity="center"
                 android:layout_weight="6"
                 android:textColor="@android:color/black"
-                app:mask="+7(###)###-##-##"
                 android:hint="@string/phone_number_hint"
-                app:allowed_chars="1234567890"
                 android:text="@={client.phoneNumber}"/>
         </LinearLayout>
         <LinearLayout

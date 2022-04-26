@@ -26,20 +26,13 @@
             tools:text="24" />
 
         <View
-            android:id="@+id/clientTop"
+            android:id="@+id/client_line"
             android:layout_width="match_parent"
             android:layout_height="5dp"
             android:layout_gravity="bottom"
             android:layout_marginBottom="18dp"
             android:background="@color/blue_800"/>
 
-        <View
-            android:id="@+id/clientBottom"
-            android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="8dp"
-            android:background="@color/blue_800" />
 
     </FrameLayout>
 

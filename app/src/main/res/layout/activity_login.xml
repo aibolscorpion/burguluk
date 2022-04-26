@@ -5,8 +5,8 @@
     <data>
         <import type="android.view.View"/>
         <variable
-            name="viewModel"
-            type="kz.shymkent.relaxhouse.loginActivity.AuthViewModel" />
+            name="loginActivity"
+            type="kz.shymkent.relaxhouse.loginActivity.LoginActivity" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -59,46 +59,44 @@
                             android:layout_height="wrap_content"
                             android:text="@string/phone_number"
                             />
-                        <br.com.sapereaude.maskedEditText.MaskedEditText
+                        <EditText
                             android:id="@+id/phone_edit_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ems="10"
-                            android:inputType="number"
+                            android:inputType="phone"
                             android:padding="10dp"
-                            android:text="@={viewModel.phoneNumber}"
-                            android:enabled="@{viewModel.phoneEditTextEnabled}"
-                            app:mask="@string/phone_number_mask"
-                            app:allowed_chars="1234567890"
+                            android:text="@={loginActivity.phoneNumber}"
+                            android:enabled="@{loginActivity.phoneEditTextEnabled}"
                             />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/verification_code"
-                            android:visibility="@{viewModel.phoneEditTextEnabled ? View.GONE : View.VISIBLE}"
+                            android:visibility="@{loginActivity.phoneEditTextEnabled ? View.GONE : View.VISIBLE}"
                             />
                         <EditText
                             android:id="@+id/verification_code_edit_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ems="10"
-                            android:visibility="@{viewModel.phoneEditTextEnabled ? View.GONE : View.VISIBLE}"
+                            android:visibility="@{loginActivity.phoneEditTextEnabled ? View.GONE : View.VISIBLE}"
                             android:hint="@string/verification_code_hint"
                             android:inputType="number"
                             android:padding="10dp"
-                            android:text="@={viewModel.verificationCode}" />
+                            android:text="@={loginActivity.verificationCode}" />
                     </LinearLayout>
                     <Button
                         android:id="@+id/button"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:text='@{viewModel.phoneEditTextEnabled ? @string/send_code : @string/enter}'
+                        android:text='@{loginActivity.phoneEditTextEnabled ? @string/send_code : @string/enter}'
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHeight_percent="0.15"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintWidth_percent="0.8"
-                        android:onClick="@{()-> viewModel.phoneEditTextEnabled ? viewModel.sendVerificationCode(viewModel.phoneNumber) : viewModel.constractCredential(viewModel.verificationCode)}"
+                        android:onClick="@{()-> loginActivity.phoneEditTextEnabled ? loginActivity.sendVerificationCode(loginActivity.phoneNumber) : loginActivity.constractCredential(loginActivity.verificationCode)}"
                         />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
