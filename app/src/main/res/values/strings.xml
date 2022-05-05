@@ -2,6 +2,7 @@
     <string name="app_name">Relax</string>
     <string name="client_was_removed">Клиент удалён</string>
     <string name="new_client">Новый клиент</string>
+    <string name="do_you_want_remove_client">Вы хотите удалить клиент ?</string>
     <string name="new_client_added">Новый клиент добавлен</string>
     <string name="fill_empty_fields">Заполните пустые поля</string>
     <string name="comment_hint">Поменять воду в бассейне</string>

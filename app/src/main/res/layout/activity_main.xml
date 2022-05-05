@@ -112,7 +112,7 @@
         android:layout_marginBottom="180dp"
         android:clickable="true"
         android:focusable="true"
-        android:onClick="@{() -> mainActivity.send_message_to_client()}"
+        android:onClick="@{() -> mainActivity.sendMessageToClient()}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_whatsapp_white"

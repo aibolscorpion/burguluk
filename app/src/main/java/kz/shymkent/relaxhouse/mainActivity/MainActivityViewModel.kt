@@ -4,7 +4,6 @@ import android.app.Application
 import android.widget.Toast
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -13,7 +12,7 @@ import com.google.firebase.database.ValueEventListener
 import kz.shymkent.relaxhouse.Constants
 import kz.shymkent.relaxhouse.PushNotification
 import kz.shymkent.relaxhouse.R
-import kz.shymkent.relaxhouse.SharedPreferencesTools.cottagename
+import kz.shymkent.relaxhouse.SharedPreferencesTools.cottageName
 import kz.shymkent.relaxhouse.SharedPreferencesTools.phoneNumber
 import kz.shymkent.relaxhouse.SharedPreferencesTools.saveCottageName
 import kz.shymkent.relaxhouse.models.Client
@@ -29,9 +28,13 @@ class MainActivityViewModel(var context : Application) : AndroidViewModel(contex
     private var currentClient : Client?= null
     private val allClientList = ArrayList<Client>()
     private val currentMonthClientList = ArrayList<Client>()
-    private val currentClientMutableLiveData = MutableLiveData<Client>()
-    private val allClientsListMutableLiveData = MutableLiveData<List<Client>>()
+    val currentClientMutableLiveData = MutableLiveData<Client>()
+    val allClientsListMutableLiveData = MutableLiveData<List<Client>>()
     val isDayHaveClientObservableBoolean = ObservableBoolean()
+
+    companion object{
+        val playerIdList = ArrayList<String>()
+    }
 
     fun getCottageNameAfterLogin() {
         val firebasePhoneNumber = phoneNumber
@@ -61,8 +64,8 @@ class MainActivityViewModel(var context : Application) : AndroidViewModel(contex
     }
 
     fun getAllClientsFromFirebase() {
-        cottagesReference.child(cottagename!!).child("clients")
-            .addValueEventListener(object : ValueEventListener {
+        cottagesReference.child(cottageName!!).child("clients")
+            .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     allClientList.clear()
                     for (clientSnapshot in dataSnapshot.children) {
@@ -104,17 +107,36 @@ class MainActivityViewModel(var context : Application) : AndroidViewModel(contex
     fun isDayHaveClient(currentDate : LocalDate) : Boolean{
         var isDayHaveClient  = false
         for(client in allClientList){
-            var date = LocalDate.parse(client.checkInDate, dateTimeFormatter)
+            val date = LocalDate.parse(client.checkInDate, dateTimeFormatter)
             if(date.year == currentDate.year && date.monthValue == currentDate.monthValue && date.dayOfMonth == currentDate.dayOfMonth){
                 isDayHaveClient = true
             }
         }
+
         return isDayHaveClient
     }
 
+    fun addClientToFirebase(client : Client){
+        cottagesReference.child(cottageName!!).child(Constants.CLIENTS).child(client.checkInDate.replace(".","")).setValue(client)
+        PushNotification.createPushNotification( getApplication<Application>().getString(R.string.added_new_client,client.formatDateForOneSignal(client.checkInDate, client.checkInTime)))
+    }
+
     fun removeClientFromFireBaseDB(client : Client){
-        cottagesReference.child(cottagename!!).child(Constants.CLIENTS).child(client.checkInDate.replace(".","")).removeValue()
+        cottagesReference.child(cottageName!!).child(Constants.CLIENTS).child(client.checkInDate.replace(".","")).removeValue()
         PushNotification.createPushNotification(context.getString(R.string.client_with_date_was_removed,client.formatDateForOneSignal(client.checkInDate, client.checkInTime)))
+    }
+
+    fun getOneSignalPlayerIds(){
+        cottagesReference.child(cottageName!!).child("oneSignalPlayerId")
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    playerIdList.clear()
+                    for (playerId in dataSnapshot.children) {
+                        playerIdList.add(playerId.value.toString())
+                    }
+                }
+                override fun onCancelled(databaseError: DatabaseError) {}
+            })
     }
 
     fun addNewCottage(name: String?) {
@@ -124,12 +146,5 @@ class MainActivityViewModel(var context : Application) : AndroidViewModel(contex
         phoneNumbers.add("+77755105107")
         cottage.phoneNumbers = phoneNumbers
         cottagesReference.child(name!!).setValue(cottage)
-    }
-
-    fun getCurrentClientLiveData() : LiveData<Client>{
-        return currentClientMutableLiveData
-    }
-    fun getAllClientsListLiveData() : LiveData<List<Client>>{
-        return allClientsListMutableLiveData
     }
 }

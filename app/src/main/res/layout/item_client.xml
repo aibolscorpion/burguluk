@@ -33,7 +33,7 @@
                 android:gravity="center"
                 android:textAllCaps="true"
                 android:lineSpacingExtra="2.5dp"
-                android:text="@{client.formatCurrentDate(client.checkInDate, client.checkInTime)}"
+                android:text="@{client.formatCurrentDateAndTime(client.checkInDate, client.checkInTime)}"
                 android:textColor="@color/calendar_text_view_color"
                 android:textSize="12sp"/>
 
@@ -119,7 +119,7 @@
                 android:layout_margin="1dp"
                 android:lineSpacingExtra="2.5dp"
                 android:textAllCaps="true"
-                android:text="@{client.formatCurrentDate(client.checkOutDate, client.checkOutTime)}"
+                android:text="@{client.formatCurrentDateAndTime(client.checkOutDate, client.checkOutTime)}"
                 android:textColor="@color/calendar_text_view_color"
                 android:textSize="12sp"
                 android:gravity="center"/>

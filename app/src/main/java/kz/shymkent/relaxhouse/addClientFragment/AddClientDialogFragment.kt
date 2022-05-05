@@ -12,18 +12,20 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import kz.shymkent.relaxhouse.R
 import kz.shymkent.relaxhouse.databinding.FragmentAddClientBinding
+import kz.shymkent.relaxhouse.mainActivity.MainActivityViewModel
 import kz.shymkent.relaxhouse.models.Client
 import java.util.*
 
 class AddClientDialogFragment : DialogFragment() {
     val client = Client()
-    lateinit var alertDialog : AlertDialog
-    lateinit var binding : FragmentAddClientBinding
-    val calendar = Calendar.getInstance()
-    lateinit var viewModel : AddClientDialogFragmentViewModel
+    private lateinit var alertDialog : AlertDialog
+    private lateinit var binding : FragmentAddClientBinding
+    private val calendar = Calendar.getInstance()
+    private lateinit var viewModel : MainActivityViewModel
+
 
     override fun onCreateDialog(savedInstanceState: Bundle?): AlertDialog {
-        viewModel = ViewModelProvider(this).get(AddClientDialogFragmentViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity())[MainActivityViewModel::class.java]
         val alertDialogBuilder = AlertDialog.Builder(activity)
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_add_client, null, false)
         alertDialogBuilder.setView(binding.root)
@@ -54,7 +56,7 @@ class AddClientDialogFragment : DialogFragment() {
         datePickerDialog.show()
     }
 
-    fun showCheckInTimePickerDialog(){
+    private fun showCheckInTimePickerDialog(){
         val timePickerDialog = TimePickerDialog(context,
             { _, hourOfDay, minute ->
                 client.checkInTime = "$hourOfDay:" + String.format("%02d", minute)
@@ -63,7 +65,7 @@ class AddClientDialogFragment : DialogFragment() {
         timePickerDialog.show()
     }
 
-    fun showCheckOutTimePickerDialog(){
+    private fun showCheckOutTimePickerDialog(){
         val timePickerDialog = TimePickerDialog(context,
             { _, hourOfDay, minute ->
                 client.checkOutTime = "$hourOfDay:" + String.format("%02d", minute)

@@ -1,9 +1,7 @@
 package kz.shymkent.relaxhouse
 
 import android.content.Context
-import android.content.SharedPreferences
 import kz.shymkent.relaxhouse.application.App
-import kz.shymkent.relaxhouse.SharedPreferencesTools
 
 object SharedPreferencesTools {
     private val sharedPreferences = App.instance.getSharedPreferences(Constants.APPLICATION_NAME, Context.MODE_PRIVATE)
@@ -25,7 +23,7 @@ object SharedPreferencesTools {
     }
 
     @JvmStatic
-    val cottagename: String?
+    val cottageName: String?
         get() = sharedPreferences.getString(Constants.COTTAGE_NAME, "")
 
     @JvmStatic

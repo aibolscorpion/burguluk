@@ -1,6 +1,5 @@
 package kz.shymkent.relaxhouse.loginActivity
 
-import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -8,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
-import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
 import kz.shymkent.relaxhouse.R
@@ -19,7 +17,7 @@ import kz.shymkent.relaxhouse.mainActivity.MainActivity
 import java.util.concurrent.TimeUnit
 
 class LoginActivity : AppCompatActivity() {
-    lateinit var activityLoginBinding: ActivityLoginBinding
+    private lateinit var activityLoginBinding: ActivityLoginBinding
     var verificationId = ""
     private val mAuth = FirebaseAuth.getInstance()
     @JvmField
@@ -54,7 +52,7 @@ class LoginActivity : AppCompatActivity() {
 
             override fun onVerificationCompleted(phoneAuthCredential: PhoneAuthCredential) {
                 verificationCode.set(phoneAuthCredential.smsCode)
-                if (!verificationCode.get()!!.isEmpty()) {
+                if (verificationCode.get()!!.isNotEmpty()) {
                     constractCredential(verificationCode.get())
                 }
             }
@@ -76,7 +74,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun constractCredential(code: String?) {
-        if (!verificationId.isEmpty()) {
+        if (verificationId.isNotEmpty()) {
             val credential = PhoneAuthProvider.getCredential(verificationId, code!!)
             signInWithCredential(credential)
         }

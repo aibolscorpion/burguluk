@@ -41,7 +41,7 @@ class Client {
     }
 
 
-    fun formatCurrentDate(date: String, time: String) : String {
+    fun formatCurrentDateAndTime(date: String, time: String) : String {
         var dateTimeFormatter1 = DateTimeFormatter.ofPattern("d.M.yyyy")
         var dateTimeFormatter2 = DateTimeFormatter.ofPattern("EE''d MMM")
 
@@ -49,6 +49,16 @@ class Client {
         return """
             ${dateTimeFormatter2.format(checkInDate)}
             $time
+            """.trimIndent()
+
+    }
+
+    fun formatCurrentDate(date: String) : String {
+        var dateTimeFormatter1 = DateTimeFormatter.ofPattern("d.M.yyyy")
+        var dateTimeFormatter2 = DateTimeFormatter.ofPattern("d MMMM")
+
+        val checkInDate = LocalDate.parse(date, dateTimeFormatter1)
+        return """${dateTimeFormatter2.format(checkInDate)}
             """.trimIndent()
 
     }

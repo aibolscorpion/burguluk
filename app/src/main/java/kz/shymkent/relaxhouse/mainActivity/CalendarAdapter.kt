@@ -11,40 +11,47 @@ import android.widget.TextView
 import android.widget.FrameLayout
 import com.kizitonwose.calendarview.model.DayOwner
 import android.widget.Toast
+import kz.shymkent.relaxhouse.models.Client
+import kz.shymkent.relaxhouse.removeClientFragment.RemoveClientDialogFragment
 import org.threeten.bp.LocalDate
 
 class CalendarAdapter(var context: MainActivity, var viewModel : MainActivityViewModel) : DayBinder<CalendarAdapter.DayViewContainer> {
     var selectedDate : LocalDate? = null
     var oldDate: LocalDate? = null
-
+    lateinit var dialog : RemoveClientDialogFragment
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun create(view: View): DayViewContainer {
         return DayViewContainer(view)
     }
 
-    @RequiresApi(Build.VERSION_CODES.M)
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun bind(container: DayViewContainer, day: CalendarDay) {
         container.day = day
-        container.calendar_day_text_view.text = day.date.dayOfMonth.toString()
-        if(day.date == selectedDate){
-            container.calendar_day_frame_layout.setBackgroundResource(R.drawable.selected_day_bg)
-        }else if(day.date == LocalDate.now()){
-            container.calendar_day_frame_layout.setBackgroundResource(R.drawable.current_day_bg)
-        }else{
-            container.calendar_day_frame_layout.background = null
+        container.calendarDayTextView.text = day.date.dayOfMonth.toString()
+        when (day.date) {
+            selectedDate -> {
+                container.calendarDayFrameLayout.setBackgroundResource(R.drawable.selected_day_bg)
+            }
+            LocalDate.now() -> {
+                container.calendarDayFrameLayout.setBackgroundResource(R.drawable.current_day_bg)
+            }
+            else -> {
+                container.calendarDayFrameLayout.background = null
+            }
         }
         addClientsToCalendar(container, day)
     }
 
 
     @RequiresApi(Build.VERSION_CODES.O)
-    inner class DayViewContainer(view: View) : ViewContainer(view) {
+    inner class DayViewContainer(view: View) : ViewContainer(view), RemoveClientDialogFragment.ClickListener {
         val clientLine : View = view.findViewById(R.id.client_line)
         lateinit var day : CalendarDay
-        val calendar_day_text_view : TextView = view.findViewById(R.id.calendar_day_text_view)
-        val calendar_day_frame_layout : FrameLayout = view.findViewById(R.id.calendar_day_frame_layout)
+        val calendarDayTextView : TextView = view.findViewById(R.id.calendar_day_text_view)
+        val calendarDayFrameLayout : FrameLayout = view.findViewById(R.id.calendar_day_frame_layout)
 
         init {
-            calendar_day_frame_layout.setOnClickListener{
+            calendarDayFrameLayout.setOnClickListener{
                 if(day.owner == DayOwner.THIS_MONTH){
                     oldDate = selectedDate
                     selectedDate = day.date
@@ -55,20 +62,26 @@ class CalendarAdapter(var context: MainActivity, var viewModel : MainActivityVie
                     viewModel.getCurrentDateClient(selectedDate!!)
                 }
             }
-            calendar_day_frame_layout.setOnLongClickListener { v : View? ->
+            calendarDayFrameLayout.setOnLongClickListener {
                 if(day.owner == DayOwner.THIS_MONTH){
                     val client = viewModel.getCurrentDateClient(day.date)
                     if(client != null && client.checkInDate.isNotEmpty()){
-                        viewModel.removeClientFromFireBaseDB(client)
-                        Toast.makeText(context, context.resources.getString(R.string.client_was_removed), Toast.LENGTH_SHORT).show()
-                    }
+                        dialog = RemoveClientDialogFragment(this, client)
+                        dialog.show(context.supportFragmentManager, "remove_client_dialog_fragment")
+                        }
                 }
                 true
             }
         }
+
+
+        override fun onOkClicked(client : Client) {
+            viewModel.removeClientFromFireBaseDB(client)
+            Toast.makeText(context, context.resources.getString(R.string.client_was_removed), Toast.LENGTH_SHORT).show()
+        }
     }
 
-    @RequiresApi(Build.VERSION_CODES.M)
+    @RequiresApi(Build.VERSION_CODES.O)
     fun addClientsToCalendar(dayViewContainer: DayViewContainer, day: CalendarDay){
         if (day.owner == DayOwner.THIS_MONTH) {
             val isDayHaveClient = viewModel.isDayHaveClient(day.date)
@@ -79,7 +92,7 @@ class CalendarAdapter(var context: MainActivity, var viewModel : MainActivityVie
             }
         } else {
             dayViewContainer.clientLine.background = null
-            dayViewContainer.calendar_day_text_view.setTextColor(context.getColor(R.color.example_5_text_grey_light))
+            dayViewContainer.calendarDayTextView.setTextColor(context.getColor(R.color.example_5_text_grey_light))
         }
     }
 }
