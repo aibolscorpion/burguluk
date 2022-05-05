@@ -96,7 +96,7 @@
                         app:layout_constraintHeight_percent="0.15"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintWidth_percent="0.8"
-                        android:onClick="@{()-> loginActivity.phoneEditTextEnabled ? loginActivity.sendVerificationCode(loginActivity.phoneNumber) : loginActivity.constractCredential(loginActivity.verificationCode)}"
+                        android:onClick="@{()-> loginActivity.phoneEditTextEnabled ? loginActivity.sendVerificationCode(loginActivity.phoneNumber) : loginActivity.constructCredential(loginActivity.verificationCode)}"
                         />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>

@@ -6,7 +6,7 @@ import androidx.fragment.app.DialogFragment
 import kz.shymkent.relaxhouse.R
 import kz.shymkent.relaxhouse.models.Client
 
-class RemoveClientDialogFragment(var listener : ClickListener, var client : Client) : DialogFragment() {
+class RemoveClientDialogFragment(private var listener : ClickListener, var client : Client) : DialogFragment() {
     private lateinit var alertDialog : AlertDialog
 
     override fun onCreateDialog(savedInstanceState: Bundle?): AlertDialog {
@@ -14,7 +14,7 @@ class RemoveClientDialogFragment(var listener : ClickListener, var client : Clie
 
         alertDialogBuilder.setTitle(client.formatCurrentDate(client.checkInDate))
         alertDialogBuilder.setMessage(R.string.do_you_want_remove_client)
-        alertDialogBuilder.setPositiveButton(android.R.string.ok) { _, _ ->
+        alertDialogBuilder.setPositiveButton(R.string.yes) { _, _ ->
             listener.onOkClicked(client)
         }
         alertDialogBuilder.setNegativeButton(android.R.string.cancel) { _, _ ->

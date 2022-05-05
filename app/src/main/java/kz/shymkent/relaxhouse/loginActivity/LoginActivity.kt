@@ -53,7 +53,7 @@ class LoginActivity : AppCompatActivity() {
             override fun onVerificationCompleted(phoneAuthCredential: PhoneAuthCredential) {
                 verificationCode.set(phoneAuthCredential.smsCode)
                 if (verificationCode.get()!!.isNotEmpty()) {
-                    constractCredential(verificationCode.get())
+                    constructCredential(verificationCode.get())
                 }
             }
 
@@ -73,7 +73,7 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-    fun constractCredential(code: String?) {
+    fun constructCredential(code: String?) {
         if (verificationId.isNotEmpty()) {
             val credential = PhoneAuthProvider.getCredential(verificationId, code!!)
             signInWithCredential(credential)

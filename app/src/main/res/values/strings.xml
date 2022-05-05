@@ -19,7 +19,6 @@
     <string name="phone_number">Номер тел. :</string>
     <string name="phone_number_hint">87771112233</string>
     <string name="comment">Коментарий :</string>
-    <string name="cancel">Отмена</string>
     <string name="add">Добавить</string>
     <string name="monday">ПОН</string>
     <string name="tuesday">ВТО</string>
@@ -38,4 +37,5 @@
     <string name="invalid_verification_code">Введенный вами код неверный !</string>
     <string name="add_cottage_to_app">Нужно добавить коттедж в приложение</string>
     <string name="client_with_date_was_removed">Клиент удалён : %s</string>
+    <string name="yes">Да</string>
 </resources>
