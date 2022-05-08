@@ -17,7 +17,6 @@
     <string name="debt">Остаток :</string>
     <string name="debt_hint">70000 тг.</string>
     <string name="phone_number">Номер тел. :</string>
-    <string name="phone_number_hint">87771112233</string>
     <string name="comment">Коментарий :</string>
     <string name="add">Добавить</string>
     <string name="monday">ПОН</string>
@@ -38,4 +37,5 @@
     <string name="add_cottage_to_app">Нужно добавить коттедж в приложение</string>
     <string name="client_with_date_was_removed">Клиент удалён : %s</string>
     <string name="yes">Да</string>
+    <string name="phone_number_placeholder">+7([000])-[000]-[00]-[00]</string>
 </resources>

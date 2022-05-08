@@ -2,6 +2,7 @@ package kz.shymkent.relaxhouse.loginActivity
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -9,6 +10,7 @@ import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
+import com.redmadrobot.inputmask.MaskedTextChangedListener
 import kz.shymkent.relaxhouse.R
 import kz.shymkent.relaxhouse.SharedPreferencesTools
 import kz.shymkent.relaxhouse.SharedPreferencesTools.authorized
@@ -31,6 +33,12 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         activityLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login)
+        val editText = activityLoginBinding.root.findViewById<EditText>(R.id.phone_edit_text)
+        val listener =  MaskedTextChangedListener(getString(R.string.phone_number_placeholder),true, editText,null,null)
+        editText.addTextChangedListener(listener)
+        editText.onFocusChangeListener = listener
+        editText.hint = listener.placeholder()
+
         activityLoginBinding.loginActivity = this
         if(authorized){
             val i = Intent(this, MainActivity::class.java)

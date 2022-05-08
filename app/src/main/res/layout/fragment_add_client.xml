@@ -191,7 +191,6 @@
                 android:gravity="center"
                 android:layout_weight="6"
                 android:textColor="@android:color/black"
-                android:hint="@string/phone_number_hint"
                 android:text="@={client.phoneNumber}"/>
         </LinearLayout>
         <LinearLayout

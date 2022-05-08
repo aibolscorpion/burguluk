@@ -158,7 +158,7 @@ class MainActivity : AppCompatActivity() {
         if (!TextUtils.isEmpty(phoneNumber)) {
             val i = Intent(Intent.ACTION_VIEW)
                 try {
-                    val url ="https://api.whatsapp.com/send?phone=" + phoneNumber + "&text=" + URLEncoder.encode("","UTF-8")
+                    val url = "https://api.whatsapp.com/send?phone=$phoneNumber"
                     i.setPackage("com.whatsapp")
                     i.data = Uri.parse(url)
                     startActivity(i)

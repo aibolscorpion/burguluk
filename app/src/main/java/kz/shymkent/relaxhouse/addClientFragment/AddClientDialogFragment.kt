@@ -5,11 +5,13 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Build
 import android.os.Bundle
+import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
+import com.redmadrobot.inputmask.MaskedTextChangedListener
 import kz.shymkent.relaxhouse.R
 import kz.shymkent.relaxhouse.databinding.FragmentAddClientBinding
 import kz.shymkent.relaxhouse.mainActivity.MainActivityViewModel
@@ -28,6 +30,12 @@ class AddClientDialogFragment : DialogFragment() {
         viewModel = ViewModelProvider(requireActivity())[MainActivityViewModel::class.java]
         val alertDialogBuilder = AlertDialog.Builder(activity)
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_add_client, null, false)
+        val editText = binding.root.findViewById<EditText>(R.id.add_phone_number_edit_text)
+        val listener =  MaskedTextChangedListener(getString(R.string.phone_number_placeholder),true, editText,null,null)
+        editText.addTextChangedListener(listener)
+        editText.onFocusChangeListener = listener
+        editText.hint = listener.placeholder()
+
         alertDialogBuilder.setView(binding.root)
         alertDialogBuilder.setTitle(getString(R.string.new_client))
         alertDialog = alertDialogBuilder.create()

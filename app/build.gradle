@@ -71,6 +71,9 @@ dependencies {
     //OneSignal Push Notification
     implementation 'com.onesignal:OneSignal:4.6.3'
 
+    //MaskedEditText
+    implementation 'com.github.RedMadRobot:input-mask-android:6.1.0'
+
     //testing
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'com.google.truth:truth:1.1.3'
