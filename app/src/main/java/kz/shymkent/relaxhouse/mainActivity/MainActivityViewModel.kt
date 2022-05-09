@@ -47,6 +47,7 @@ class MainActivityViewModel(var context : Application) : AndroidViewModel(contex
                         if (dataBasePhoneNumber == firebasePhoneNumber) {
                             saveCottageName(cottage.name)
                             getAllClientsFromFirebase()
+                            getOneSignalPlayerIds()
                             cottageFound = true
                             return
                         }

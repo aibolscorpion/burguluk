@@ -63,7 +63,6 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         viewModel.getCottageNameAfterLogin()
-        viewModel.getOneSignalPlayerIds()
 
         calendarView = findViewById(R.id.calendarView)
         callFAB = findViewById(R.id.call_floating_action_button)
