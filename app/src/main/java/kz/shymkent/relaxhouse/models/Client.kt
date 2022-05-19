@@ -3,16 +3,16 @@ package kz.shymkent.relaxhouse.models
 import org.threeten.bp.LocalDate
 import org.threeten.bp.format.DateTimeFormatter
 
-class Client {
-    var checkInDate = ""
-    var checkOutDate = ""
-    var quantity = ""
-    var checkInTime = ""
-    var checkOutTime = ""
-    var avans = ""
-    var debt = ""
-    var phoneNumber = ""
-    var comment = ""
+data class Client (var checkInDate:String = "",
+              var checkOutDate:String = "",
+              var quantity:String = "",
+              var checkInTime:String = "",
+              var checkOutTime:String = "",
+              var avans:String = "",
+              var debt:String = "",
+              var phoneNumber:String = "",
+              var comment:String = ""){
+
 
     companion object {
         @JvmStatic
@@ -71,7 +71,4 @@ class Client {
         return " ${dateTimeFormatter2.format(formattedCheckInDate)} $time"
     }
 
-    override fun toString(): String {
-        return "Client(checkInDate='$checkInDate', checkOutDate='$checkOutDate', quantity='$quantity', checkInTime='$checkInTime', checkOutTime='$checkOutTime', avans='$avans', debt='$debt', phoneNumber='$phoneNumber', comment='$comment')"
-    }
 }

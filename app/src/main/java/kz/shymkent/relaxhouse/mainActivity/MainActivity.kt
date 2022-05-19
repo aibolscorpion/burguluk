@@ -51,8 +51,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true)
-
         activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         viewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
